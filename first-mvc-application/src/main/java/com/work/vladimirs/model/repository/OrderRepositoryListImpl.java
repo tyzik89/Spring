@@ -24,6 +24,10 @@ public class OrderRepositoryListImpl implements OrderRepository {
     }
 
     public Order getById(Integer id) {
-        return orders.get(id);
+        for (Order order : orders) {
+            if (order.getId() == id)
+                return order;
+        }
+        return null;
     }
 }
