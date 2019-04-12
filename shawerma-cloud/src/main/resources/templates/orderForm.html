@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Taco Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+<body>
+<form method="POST" th:action="@{/orders}" th:object="${order}">
+    <h1>Закажи свою шаверму-творение!!!</h1>
+    <img th:src="@{/images/ShawermaCloud.png}"/>
+    <a th:href="@{/design}" id="another">Создать новую шаурму</a><br/>
+    <div th:if="${#fields.hasErrors()}">
+<span class="validationError">
+Please correct the problems below and resubmit.
+</span>
+    </div>
+    <h3>Доставить мой шедевр к...</h3>
+    <label for="name">Имя: </label>
+    <input type="text" th:field="*{name}"/>
+    <br/>
+    <label for="street">Улица: </label>
+    <input type="text" th:field="*{street}"/>
+    <br/>
+    <label for="city">Город: </label>
+    <input type="text" th:field="*{city}"/>
+    <br/>
+    <label for="state">Район: </label>
+    <input type="text" th:field="*{state}"/>
+    <br/>
+    <label for="zip">Индекс: </label>
+    <input type="text" th:field="*{zip}"/>
+    <br/>
+    <h3>Оплата шедевра...</h3>
+    <label for="ccNumber">Номер карты #: </label>
+    <input type="text" th:field="*{ccNumber}"/>
+    <br/>
+    <label for="ccExpiration">Владелец карты: </label>
+    <input type="text" th:field="*{ccExpiration}"/>
+    <br/>
+    <label for="ccCVV">CVV: </label>
+    <input type="text" th:field="*{ccCVV}"/>
+    <br/>
+    <input type="submit" value="Submit order"/>
+</form>
+</body>
+</html>
