@@ -1,14 +1,35 @@
 package com.work.vladimirs.shawermacloud.entity;
 
+import org.hibernate.validator.constraints.CreditCardNumber;
+
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class Order {
 
+    @NotBlank(message="Заполните!")
     private String name;
+
+    @NotBlank(message="Заполните!")
     private String street;
+
+    @NotBlank(message="Заполните!")
     private String city;
+
+    @NotBlank(message="Заполните!")
     private String state;
+
+    @NotBlank(message="Заполните!")
     private String zip;
+
+    @CreditCardNumber(message = "Неправильный номер карты")
     private String ccNumber;
+
+    @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$", message="Должен быть формата MM/YY")
     private String ccExpiration;
+
+    @Digits(integer=3, fraction=0, message="Неверный CVV")
     private String ccCVV;
 
     public Order(String name, String street, String city, String state, String zip, String ccNumber, String ccExpiration, String ccCVV) {

@@ -11,9 +11,9 @@
     <img th:src="@{/images/ShawermaCloud.png}"/>
     <a th:href="@{/design}" id="another">Создать новую шаурму</a><br/>
     <div th:if="${#fields.hasErrors()}">
-<span class="validationError">
-Please correct the problems below and resubmit.
-</span>
+        <span class="validationError">
+        Please correct the problems below and resubmit.
+        </span>
     </div>
     <h3>Доставить мой шедевр к...</h3>
     <label for="name">Имя: </label>
@@ -34,6 +34,7 @@ Please correct the problems below and resubmit.
     <h3>Оплата шедевра...</h3>
     <label for="ccNumber">Номер карты #: </label>
     <input type="text" th:field="*{ccNumber}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('ccNumber')}" th:errors="*{ccNumber}">CC Num Error</span>
     <br/>
     <label for="ccExpiration">Владелец карты: </label>
     <input type="text" th:field="*{ccExpiration}"/>

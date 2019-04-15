@@ -1,10 +1,16 @@
 package com.work.vladimirs.shawermacloud.entity;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Shawerma {
 
+    @NotNull
+    @Size(min = 5, message = "Имя должно быть как минимум 5 символов")
     private String name;
+
+    @Size(min = 1, message = "Необходимо выбрать хотя бы 1 ингредиент")
     private List<String> ingredients;
 
     public Shawerma(String name, List<String> ingredients) {
