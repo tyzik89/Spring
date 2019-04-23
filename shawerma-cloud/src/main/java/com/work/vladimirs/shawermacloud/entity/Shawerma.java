@@ -2,9 +2,13 @@ package com.work.vladimirs.shawermacloud.entity;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.Date;
 import java.util.List;
 
 public class Shawerma {
+
+    private Long id;
+    private Date createAt;
 
     @NotNull
     @Size(min = 5, message = "Имя должно быть как минимум 5 символов")
@@ -13,18 +17,26 @@ public class Shawerma {
     @Size(min = 1, message = "Необходимо выбрать хотя бы 1 ингредиент")
     private List<String> ingredients;
 
-    public Shawerma(String name, List<String> ingredients) {
-        this.name = name;
-        this.ingredients = ingredients;
-    }
+
+
+
 
     public Shawerma() {
+    }
+
+    public Shawerma(Long id, Date createAt, String name, List<String> ingredients) {
+        this.id = id;
+        this.createAt = createAt;
+        this.name = name;
+        this.ingredients = ingredients;
     }
 
     @Override
     public String toString() {
         return "Shawerma{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", createAt=" + createAt +
+                ", name='" + name + '\'' +
                 ", ingredients=" + ingredients +
                 '}';
     }
@@ -36,15 +48,35 @@ public class Shawerma {
 
         Shawerma shawerma = (Shawerma) o;
 
+        if (!id.equals(shawerma.id)) return false;
+        if (!createAt.equals(shawerma.createAt)) return false;
         if (!name.equals(shawerma.name)) return false;
-        return ingredients != null ? ingredients.equals(shawerma.ingredients) : shawerma.ingredients == null;
+        return ingredients.equals(shawerma.ingredients);
     }
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 31 * result + (ingredients != null ? ingredients.hashCode() : 0);
+        int result = id.hashCode();
+        result = 31 * result + createAt.hashCode();
+        result = 31 * result + name.hashCode();
+        result = 31 * result + ingredients.hashCode();
         return result;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
     }
 
     public String getName() {

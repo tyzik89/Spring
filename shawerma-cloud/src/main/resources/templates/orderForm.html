@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Taco Cloud</title>
+    <title>Shawerma Cloud</title>
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
 <body>
@@ -27,9 +27,11 @@
     <br/>
     <label for="state">Район: </label>
     <input type="text" th:field="*{state}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('state')}" th:errors="*{state}">state Error</span>
     <br/>
     <label for="zip">Индекс: </label>
     <input type="text" th:field="*{zip}"/>
+    <span class="validationError" th:if="${#fields.hasErrors('zip')}" th:errors="*{zip}">Zip Error</span>
     <br/>
     <h3>Оплата шедевра...</h3>
     <label for="ccNumber">Номер карты #: </label>

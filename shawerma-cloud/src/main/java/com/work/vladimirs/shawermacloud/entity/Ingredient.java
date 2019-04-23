@@ -10,6 +10,9 @@ public class Ingredient {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 
+
+
+
     public Ingredient(String id, String name, Type type) {
         this.id = id;
         this.name = name;

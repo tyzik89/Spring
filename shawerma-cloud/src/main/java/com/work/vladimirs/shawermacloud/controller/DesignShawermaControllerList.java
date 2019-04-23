@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Controller
-@RequestMapping("/design")
-public class DesignShawermaController {
+@Deprecated
+//Хранение данных в списке
+//@Controller
+//@RequestMapping("/design")
+public class DesignShawermaControllerList {
 
     List<Ingredient> ingredients = Arrays.asList(
             new Ingredient("WCOM", "Обычный лаваш", Type.WRAP),
@@ -32,7 +34,7 @@ public class DesignShawermaController {
             new Ingredient("SMAY", "Майонез", Type.SAUCE)
     );
 
-    @GetMapping
+    //@GetMapping
     public String showDesignForm(Model model) {
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {
@@ -51,7 +53,7 @@ public class DesignShawermaController {
         return result;
     }
 
-    @PostMapping
+    //@PostMapping
     public String processDesign(@Valid Shawerma shawerma, Errors errors) {
         if (errors.hasErrors()) {
             return "design";
