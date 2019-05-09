@@ -4,6 +4,7 @@ import com.work.vladimirs.shawermacloud.entity.Ingredient;
 import com.work.vladimirs.shawermacloud.entity.Ingredient.Type;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
 import com.work.vladimirs.shawermacloud.repositories.IngredientRepository;
+import com.work.vladimirs.shawermacloud.repositories.ShawemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,9 @@ public class DesignShawermaControllerJDBC {
 
     @Autowired
     private IngredientRepository repository;
+
+    @Autowired
+    private ShawemaRepository shawemaRepository;
 
     @GetMapping
     public String showDesignForm(Model model) {
