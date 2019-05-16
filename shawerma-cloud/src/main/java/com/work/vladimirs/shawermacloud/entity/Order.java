@@ -5,12 +5,15 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
     private Long id;
     private Date placedAt;
+    private List<Shawerma> shawermas = new ArrayList<Shawerma>();
 
     @NotBlank(message="Заполните!")
     private String name;
@@ -27,10 +30,10 @@ public class Order {
     @NotBlank(message="Fill!")
     private String zip;
 
-    @CreditCardNumber(message = "Неправильный номер карты")
+    //@CreditCardNumber(message = "Неправильный номер карты")
     private String ccNumber;
 
-    @Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$", message="Должен быть формата MM/YY")
+    //@Pattern(regexp="^(0[1-9]|1[0-2])([\\/])([1-9][0-9])$", message="Должен быть формата MM/YY")
     private String ccExpiration;
 
     @Digits(integer=3, fraction=0, message="Неверный CVV")
@@ -184,5 +187,13 @@ public class Order {
 
     public void setCcCVV(String ccCVV) {
         this.ccCVV = ccCVV;
+    }
+
+    public void addShawerma(Shawerma shawerma) {
+        shawermas.add(shawerma);
+    }
+
+    public List<Shawerma> getShawermas () {
+        return shawermas;
     }
 }

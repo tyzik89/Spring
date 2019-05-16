@@ -2,6 +2,7 @@ package com.work.vladimirs.shawermacloud.controller;
 
 import com.work.vladimirs.shawermacloud.entity.Ingredient;
 import com.work.vladimirs.shawermacloud.entity.Ingredient.Type;
+import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
 import com.work.vladimirs.shawermacloud.repositories.IngredientRepository;
 import com.work.vladimirs.shawermacloud.repositories.ShawemaRepository;
@@ -9,10 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -51,11 +49,25 @@ public class DesignShawermaControllerJDBC {
         return result;
     }
 
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+    @ModelAttribute(name = "shawerma")
+    public Shawerma taco() {
+        return new Shawerma();
+    }
+
     @PostMapping
-    public String processDesign(@Valid Shawerma shawerma, Errors errors) {
+    public String processDesign(@Valid Shawerma shawerma, Errors errors, @ModelAttribute Order order) {
         if (errors.hasErrors()) {
             return "designForm";
         }
+
+        Shawerma saved = shawemaRepository.save(shawerma);
+        order.addShawerma(saved);
+
         return "redirect:/orders/current";
     }
 

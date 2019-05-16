@@ -10,8 +10,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
-import java.sql.Types;
+import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -33,13 +33,19 @@ public class JdbcShawermaRepository implements ShawemaRepository {
 
     private long saveShawermaInfo(Shawerma shawerma) {
         shawerma.setCreateAt(new Date());
-        PreparedStatementCreator psc = new PreparedStatementCreatorFactory(
-                "insert into Shawerma (name, createdAt) values (?, ?)",
-                Types.VARCHAR, Types.TIMESTAMP
-        ).newPreparedStatementCreator(
-                Arrays.asList(
-                        shawerma.getName(),
-                        new Timestamp(shawerma.getCreateAt().getTime())));
+
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps = connection.prepareStatement(
+                        "insert into Shawerma (name, createdAt) values (?, ?)",
+                        new String[] {"id"}
+                );
+                ps.setString(1, shawerma.getName());
+                ps.setTimestamp(2, new Timestamp(shawerma.getCreateAt().getTime()));
+                return ps;
+            }
+        };
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(psc, keyHolder);
@@ -48,7 +54,7 @@ public class JdbcShawermaRepository implements ShawemaRepository {
 
     private void saveIngredientToShawerma(String ingredient, long tacoId) {
         jdbcTemplate.update(
-                "insert into Shawerma_Ingredients (taco, ingredient) values (?, ?)",
+                "insert into Shawerma_Ingredients (shawerma, ingredient) values (?, ?)",
                 tacoId, ingredient);
     }
 }

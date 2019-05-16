@@ -11,7 +11,7 @@ public class Shawerma {
     private Date createAt;
 
     @NotNull
-    @Size(min = 5, message = "Имя должно быть как минимум 5 символов")
+    @Size(min = 2, message = "Имя должно быть как минимум 2 символа")
     private String name;
 
     @Size(min = 1, message = "Необходимо выбрать хотя бы 1 ингредиент")
