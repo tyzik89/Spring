@@ -1,17 +1,28 @@
 package com.work.vladimirs.shawermacloud.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ingredient {
 
+    @Id
     private final String id;
+
     private final String name;
+
     private final Type type;
 
     public static enum Type {
         WRAP, PROTEIN, VEGGIES, CHEESE, SAUCE
     }
 
-
-
+    //Empty constructor need for JPA
+    private Ingredient() {
+        this.id = null;
+        this.name = null;
+        this.type = null;
+    }
 
     public Ingredient(String id, String name, Type type) {
         this.id = id;

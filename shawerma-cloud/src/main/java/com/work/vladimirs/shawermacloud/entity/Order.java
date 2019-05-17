@@ -2,17 +2,30 @@ package com.work.vladimirs.shawermacloud.entity;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Order {
+@Entity
+//Сущность Order должна сохраняться в БД в таблицу, указанную в name
+//По умолчанию сущность сохранялась бы в несуществующую таблицу Order - по имени класса
+@Table(name="Shawerma_Order")
+public class Order implements Serializable {
 
+    private static final long SERIAL_VERSION_UID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private Date placedAt;
+
+    @ManyToMany(targetEntity = Shawerma.class)
     private List<Shawerma> shawermas = new ArrayList<Shawerma>();
 
     @NotBlank(message="Заполните!")
@@ -39,8 +52,9 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Неверный CVV")
     private String ccCVV;
 
-
-
+    //Empty constructor need for JPA
+    public Order() {
+    }
 
     public Order(Long id, Date placedAt, String name, String street, String city,
                  String state, String zip, String ccNumber, String ccExpiration, String ccCVV) {
@@ -56,7 +70,10 @@ public class Order {
         this.ccCVV = ccCVV;
     }
 
-    public Order() {
+    //Метод для установки даты создания заказа, ещё до его сохранения в БД
+    @PrePersist
+    void placedAt() {
+        this.placedAt = new Date();
     }
 
     @Override
@@ -190,7 +207,7 @@ public class Order {
     }
 
     public void addShawerma(Shawerma shawerma) {
-        shawermas.add(shawerma);
+        this.shawermas.add(shawerma);
     }
 
     public List<Shawerma> getShawermas () {

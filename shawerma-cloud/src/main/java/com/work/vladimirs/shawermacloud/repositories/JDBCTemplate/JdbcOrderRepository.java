@@ -1,8 +1,9 @@
-package com.work.vladimirs.shawermacloud.repositories;
+package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
+import com.work.vladimirs.shawermacloud.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;

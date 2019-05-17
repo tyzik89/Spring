@@ -1,7 +1,8 @@
-package com.work.vladimirs.shawermacloud.repositories;
+package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 
 import com.work.vladimirs.shawermacloud.entity.Ingredient;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
+import com.work.vladimirs.shawermacloud.repositories.ShawemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;

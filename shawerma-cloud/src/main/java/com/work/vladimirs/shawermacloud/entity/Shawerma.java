@@ -1,26 +1,33 @@
 package com.work.vladimirs.shawermacloud.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Shawerma {
 
+    @Id()
+    //Т.к. id генерируется базой данных - то помечаем поле как
+    //@GeneratedValue со стратегией Auto
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Date createAt;
 
     @NotNull
     @Size(min = 2, message = "Имя должно быть как минимум 2 символа")
     private String name;
 
+    private Date createAt;
+
+    //Шаурма может иметь множество ингридиентов
+    //И ингридиент может быть частью многих шаурм
+    @ManyToMany(targetEntity = Ingredient.class)
     @Size(min = 1, message = "Необходимо выбрать хотя бы 1 ингредиент")
     private List<String> ingredients;
 
-
-
-
-
+    //Empty constructor need for JPA
     public Shawerma() {
     }
 
@@ -29,6 +36,12 @@ public class Shawerma {
         this.createAt = createAt;
         this.name = name;
         this.ingredients = ingredients;
+    }
+
+    //Метод для установки даты создания шаурмы, ещё до её сохранения в БД
+    @PrePersist
+    void createAt() {
+        this.createAt = new Date();
     }
 
     @Override
