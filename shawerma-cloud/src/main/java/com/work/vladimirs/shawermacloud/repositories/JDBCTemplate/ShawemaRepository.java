@@ -1,4 +1,4 @@
-package com.work.vladimirs.shawermacloud.repositories;
+package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
 

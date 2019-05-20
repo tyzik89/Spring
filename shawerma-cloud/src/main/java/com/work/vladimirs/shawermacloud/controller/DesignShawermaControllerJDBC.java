@@ -4,9 +4,10 @@ import com.work.vladimirs.shawermacloud.entity.Ingredient;
 import com.work.vladimirs.shawermacloud.entity.Ingredient.Type;
 import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
-import com.work.vladimirs.shawermacloud.repositories.IngredientRepository;
-import com.work.vladimirs.shawermacloud.repositories.ShawemaRepository;
+import com.work.vladimirs.shawermacloud.repositories.JDBCTemplate.IngredientRepository;
+import com.work.vladimirs.shawermacloud.repositories.JDBCTemplate.ShawemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -22,15 +23,17 @@ import java.util.List;
 public class DesignShawermaControllerJDBC {
 
     @Autowired
-    private IngredientRepository repository;
+    @Qualifier(value = "JdbcIngredientRepository")
+    private IngredientRepository ingredientRepository;
 
     @Autowired
+    @Qualifier(value = "JdbcShawermaRepository")
     private ShawemaRepository shawemaRepository;
 
     @GetMapping
     public String showDesignForm(Model model) {
         List<Ingredient> ingredients = new ArrayList<Ingredient>();
-        repository.findAll().forEach(i -> ingredients.add(i));
+        ingredientRepository.findAll().forEach(i -> ingredients.add(i));
 
         Type[] types = Ingredient.Type.values();
         for (Type type : types) {

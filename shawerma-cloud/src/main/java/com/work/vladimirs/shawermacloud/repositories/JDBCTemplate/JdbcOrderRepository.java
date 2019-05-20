@@ -3,8 +3,8 @@ package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
-import com.work.vladimirs.shawermacloud.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
+@Qualifier(value = "JdbcOrderRepository")
 public class JdbcOrderRepository implements OrderRepository {
 
     private SimpleJdbcInsert orderInserter;

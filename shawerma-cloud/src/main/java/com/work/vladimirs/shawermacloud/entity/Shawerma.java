@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Shawerma {
 
-    @Id()
+    @Id
     //Т.к. id генерируется базой данных - то помечаем поле как
     //@GeneratedValue со стратегией Auto
     @GeneratedValue(strategy = GenerationType.AUTO)

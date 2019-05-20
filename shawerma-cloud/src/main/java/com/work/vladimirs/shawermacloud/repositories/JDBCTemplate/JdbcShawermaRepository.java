@@ -1,22 +1,19 @@
 package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 
-import com.work.vladimirs.shawermacloud.entity.Ingredient;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
-import com.work.vladimirs.shawermacloud.repositories.ShawemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.Date;
 
 @Repository
+@Qualifier(value = "JdbcShawermaRepository")
 public class JdbcShawermaRepository implements ShawemaRepository {
 
     @Autowired

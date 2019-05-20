@@ -2,8 +2,10 @@ package com.work.vladimirs.shawermacloud.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "Ingredient")
 public class Ingredient {
 
     @Id

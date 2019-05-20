@@ -1,8 +1,8 @@
 package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 
 import com.work.vladimirs.shawermacloud.entity.Ingredient;
-import com.work.vladimirs.shawermacloud.repositories.IngredientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
+@Qualifier(value = "JdbcIngredientRepository")
 public class JdbcIngredientRepository implements IngredientRepository {
 
     @Autowired
