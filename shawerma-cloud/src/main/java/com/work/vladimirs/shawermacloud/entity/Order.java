@@ -14,6 +14,8 @@ import java.util.List;
 @Entity
 //Сущность Order должна сохраняться в БД в таблицу, указанную в name
 //По умолчанию сущность сохранялась бы в несуществующую таблицу Order - по имени класса
+
+//Сериализуемый объект, т.к. он будет храниться в сессии
 @Table(name="Shawerma_Order")
 public class Order implements Serializable {
 
