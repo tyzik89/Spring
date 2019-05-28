@@ -60,7 +60,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //By default, the password given in the login form will be compared with the value of the
                 //userPassword attribute in the user’s LDAP entry. If the password is kept in a different
                 //attribute, you can specify the password attribute’s name with passwordAttribute():
-                .passwordAttribute("passcode");
+                .passwordAttribute("passcode")
+                //exact location of LDAP files
+                .contextSource()
+                    .root("dc=tacocloud,dc=com")
+                    .ldif("classpath:users.ldif");
     }*/
 
     private static final String SECRET = "53cr3t";
