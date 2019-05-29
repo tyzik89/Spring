@@ -30,8 +30,7 @@ public class User implements UserDetails {
     private final String zip;
     private final String phoneNumber;
 
-    public User(Long id, String username, String password, String fullname, String street, String city, String state, String zip, String phoneNumber) {
-        this.id = id;
+    public User(String username, String password, String fullname, String street, String city, String state, String zip, String phoneNumber) {
         this.username = username;
         this.password = password;
         this.fullname = fullname;

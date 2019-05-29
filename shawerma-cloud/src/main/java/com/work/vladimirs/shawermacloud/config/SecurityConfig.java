@@ -1,18 +1,63 @@
 package com.work.vladimirs.shawermacloud.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String SECRET = "53cr3t";
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Bean
+    public PasswordEncoder encoder() {
+        return new StandardPasswordEncoder(SECRET);
+    }
+
+
+    //Конфигурация аутентификации юзера
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(encoder());
+    }
+
+    /*
+    //Конфигурация доступа и аутентификационных правил через Spring Expression Language
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/design", "/orders")
+                    .access("hasRole('ROLE_USER')")
+                .antMatchers("/", "/**").access("permitAll")
+        ;
+    }*/
+
+    //Конфигурация аутентификационных правил и доступа на страницы
+    //К "/design", "/orders" имеют доступ только зарегистрированные юзеры с ролью ROLE_USER
+    //Порядок antMatchers ВАЖЕН! Первые указанные имеют больший приоритет
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/design", "/orders")
+                    .hasRole("ROLE_USER")
+                .antMatchers("/", "/**").permitAll();
+    }
+
 
     /*
     //Хранение юзеров в памяти(user for tests) - такой подход не позволяет измениять данные о пользователях "на лету"
@@ -67,10 +112,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .ldif("classpath:users.ldif");
     }*/
 
+    /*
+    //JDBC-based authentication
     private static final String SECRET = "53cr3t";
 
     @Autowired
-    DataSource dataSource;
+    private DataSource dataSource;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -84,5 +131,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(new StandardPasswordEncoder(SECRET));
 
 
-    }
+    }*/
 }
