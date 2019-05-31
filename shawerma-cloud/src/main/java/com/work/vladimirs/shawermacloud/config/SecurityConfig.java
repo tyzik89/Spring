@@ -55,7 +55,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/design", "/orders")
                     .hasRole("ROLE_USER")
-                .antMatchers("/", "/**").permitAll();
+                .antMatchers("/", "/**").permitAll()
+            //Adding custom login page
+            //.and() it's new section of configuration
+            .and()
+                .formLogin()
+                    .loginPage("/login");
+                    /*
+                    //Change standard parameters of login: url for request, username and password attributes.
+                    .loginProcessingUrl("/authenticate")
+                    .usernameParameter("user")
+                    .passwordParameter("pwd")
+                    //Changes default page after successfully log, a second param of defaultSuccessUrl - set True
+                    // if i force the user to the design page after login
+                    .defaultSuccessUrl("/design")
+                    */
     }
 
 
