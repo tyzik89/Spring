@@ -1,4 +1,4 @@
-package com.work.vladimirs.shawermacloud.security;
+package com.work.vladimirs.shawermacloud.entity.security;
 
 import com.work.vladimirs.shawermacloud.entity.User;
 import org.springframework.security.crypto.password.PasswordEncoder;

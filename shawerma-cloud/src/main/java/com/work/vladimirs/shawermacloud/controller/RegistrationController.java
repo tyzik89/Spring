@@ -1,7 +1,7 @@
 package com.work.vladimirs.shawermacloud.controller;
 
 import com.work.vladimirs.shawermacloud.repositories.JPA.repositories.UserRepository;
-import com.work.vladimirs.shawermacloud.security.RegistrationForm;
+import com.work.vladimirs.shawermacloud.entity.security.RegistrationForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;

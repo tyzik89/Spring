@@ -55,7 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/design", "/orders")
                     .hasRole("ROLE_USER")
-                .antMatchers("/", "/**").permitAll()
+                .antMatchers("/", "/**")
+                    .permitAll()
             //Adding custom login page
             //.and() it's new section of configuration
             .and()
