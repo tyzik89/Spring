@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             //.and() it's new section of configuration
             .and()
                 .formLogin()
-                    .loginPage("/login");
+                    .loginPage("/login")
                     /*
                     //Change standard parameters of login: url for request, username and password attributes.
                     .loginProcessingUrl("/authenticate")
@@ -71,6 +71,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     // if i force the user to the design page after login
                     .defaultSuccessUrl("/design")
                     */
+
+            //This sets up a security filter that intercepts POST requests to /logout.
+            .and()
+                .logout()
+                    .logoutSuccessUrl("/");
+            /*
+            //It's disable CSRF protection but it's bad.
+            // <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            // this include hidden field into the page for CSRF token
+            .and()
+                .csrf()
+                .disable()*/
     }
 
 
