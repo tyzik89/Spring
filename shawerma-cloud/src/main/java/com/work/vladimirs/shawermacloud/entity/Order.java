@@ -27,6 +27,10 @@ public class Order implements Serializable {
 
     private Date placedAt;
 
+    //Order belongs to single user
+    @ManyToOne
+    private User user;
+
     @ManyToMany(targetEntity = Shawerma.class)
     private List<Shawerma> shawermas = new ArrayList<Shawerma>();
 
@@ -215,4 +219,13 @@ public class Order implements Serializable {
     public List<Shawerma> getShawermas () {
         return shawermas;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
