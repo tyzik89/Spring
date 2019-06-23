@@ -1,0 +1,6 @@
+logging:
+  level:
+    root: WARN
+    org.springframework.security: DEBUG
+  path: /var/logs/
+  file: ShawermaCloud.log

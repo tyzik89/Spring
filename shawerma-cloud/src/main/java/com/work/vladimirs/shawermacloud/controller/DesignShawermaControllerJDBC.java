@@ -6,6 +6,8 @@ import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
 import com.work.vladimirs.shawermacloud.repositories.JDBCTemplate.IngredientRepository;
 import com.work.vladimirs.shawermacloud.repositories.JDBCTemplate.ShawemaRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,8 @@ import java.util.List;
 @SessionAttributes("order")
 public class DesignShawermaControllerJDBC {
 
+    private static final Logger log = LoggerFactory.getLogger(DesignShawermaControllerJDBC.class);
+
     @Autowired
     @Qualifier(value = "JdbcIngredientRepository")
     private IngredientRepository ingredientRepository;
@@ -32,6 +36,8 @@ public class DesignShawermaControllerJDBC {
 
     @GetMapping
     public String showDesignForm(Model model) {
+        log.debug("showDesignForm");
+        log.debug("i = {}", 10);
         List<Ingredient> ingredients = new ArrayList<Ingredient>();
         ingredientRepository.findAll().forEach(i -> ingredients.add(i));
 

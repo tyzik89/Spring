@@ -1,6 +1,7 @@
 package com.work.vladimirs.shawermacloud.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -16,9 +17,12 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String SECRET = "53cr3t";
+    private final UserDetailsService userDetailsService;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    public SecurityConfig(@Qualifier("UserRepositoryUserDetailsService") UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public PasswordEncoder encoder() {
@@ -54,7 +58,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/design", "/orders")
-                    .hasRole("ROLE_USER")
+                    .permitAll()//hasRole("ROLE_USER")
                 .antMatchers("/", "/**")
                     .permitAll()
             //Adding custom login page
