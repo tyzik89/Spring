@@ -3,8 +3,11 @@ package com.work.vladimirs.shawermacloud.repositories.JDBCTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.vladimirs.shawermacloud.entity.Order;
 import com.work.vladimirs.shawermacloud.entity.Shawerma;
+import com.work.vladimirs.shawermacloud.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.data.domain.Pageable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -63,5 +66,10 @@ public class JdbcOrderRepository implements OrderRepository {
         values.put("shawermaOrder", orderId);
         values.put("shawerma", shawerma.getId());
         orderShawermaInserter.execute(values);
+    }
+
+    @Override
+    public List<Order> findByUserOrderByPlacedAtDesc(User user, Pageable pageable) {
+        return null;
     }
 }
