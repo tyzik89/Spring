@@ -20,7 +20,7 @@ public final class App {
      * @param args Array of command line arguments.
      */
     public static void main(String[] args) {
-        /*Создаёт Spring context используя аннотации и Spring beans из  ContextConfiguration.*/
+        /*Создаёт Spring context используя Spring beans из  ContextConfiguration.*/
         ApplicationContext context = new AnnotationConfigApplicationContext(ContextConfiguration.class);
 
         /*Запрашивает из контекста bean типа Greeter.

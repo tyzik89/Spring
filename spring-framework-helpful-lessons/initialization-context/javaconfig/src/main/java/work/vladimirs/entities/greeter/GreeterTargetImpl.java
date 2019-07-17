@@ -1,11 +1,7 @@
 package work.vladimirs.entities.greeter;
 
-import org.springframework.stereotype.Service;
 import work.vladimirs.entities.coin.Coin;
 
-import javax.inject.Inject;
-
-@Service
 public class GreeterTargetImpl implements GreeterTarget{
 
     public static final String SPRING = "SPRING";
@@ -13,7 +9,6 @@ public class GreeterTargetImpl implements GreeterTarget{
 
     private Coin coin;
 
-    @Inject
     public GreeterTargetImpl(final Coin newCoin) {
         this.coin = newCoin;
     }
