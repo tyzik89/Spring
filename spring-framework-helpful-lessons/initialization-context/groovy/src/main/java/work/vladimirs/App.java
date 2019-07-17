@@ -1,8 +1,7 @@
 package work.vladimirs;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import work.vladimirs.configuration.ContextConfiguration;
+import org.springframework.context.support.GenericGroovyApplicationContext;
 import work.vladimirs.entities.greeter.Greeter;
 
 /**
@@ -20,8 +19,8 @@ public final class App {
      * @param args Array of command line arguments.
      */
     public static void main(String[] args) {
-        /*Создаёт Spring context используя аннотации и Spring beans из  ContextConfiguration.*/
-        ApplicationContext context = new AnnotationConfigApplicationContext(ContextConfiguration.class);
+        /*Создаёт Spring context используя конфигурацию ../resources/applicationContext.groovy*/
+        ApplicationContext context = new GenericGroovyApplicationContext("/applicationContext.groovy");
 
         /*Запрашивает из контекста bean типа Greeter.
         Стоит отметить, что класс к этому времени уже сконструирован, классы, от которых он зависит,

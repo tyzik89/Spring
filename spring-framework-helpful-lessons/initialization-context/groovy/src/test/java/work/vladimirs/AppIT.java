@@ -16,13 +16,13 @@ import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import work.vladimirs.entities.greeter.Greeter;
 
 import javax.inject.Inject;
-import static org.junit.Assert.*;
 
-@ContextConfiguration(loader = AnnotationConfigContextLoader.class, classes = work.vladimirs.configuration.ContextConfiguration.class)
+import static org.junit.Assert.assertTrue;
+
+@ContextConfiguration("/applicationContext.groovy")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AppIT {
 
