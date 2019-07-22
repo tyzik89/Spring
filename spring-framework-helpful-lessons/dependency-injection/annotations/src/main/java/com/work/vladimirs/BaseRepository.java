@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BaseRepository {
 
-    int count() {
+    public int count() {
         return 10;
     }
 }

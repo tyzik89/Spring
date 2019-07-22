@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class BaseService {
 
-    boolean isMany(int number) {
+    public boolean isMany(int number) {
         return number > 5;
     }
 }
