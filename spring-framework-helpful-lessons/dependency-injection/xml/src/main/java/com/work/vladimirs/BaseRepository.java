@@ -2,7 +2,7 @@ package com.work.vladimirs;
 
 public class BaseRepository {
 
-    int count() {
+    public int count() {
         return 10;
     }
 }
