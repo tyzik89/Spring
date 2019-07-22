@@ -3,7 +3,7 @@ package com.work.vladimirs;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-public class App {
+public class AppJava {
 
     public static void main(final String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(ContextConfiguration.class);
