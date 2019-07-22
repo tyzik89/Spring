@@ -15,5 +15,18 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <!--Чтобы попробовать groovy конфигурацию, необходимо добавить groovy runtime в приложение.-->
+    <properties>
+        <groovy.version>2.4.4</groovy.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovy.version}</version>
+        </dependency>
+    </dependencies>
+
     
 </project>
