@@ -1,13 +1,13 @@
-package com.vladimirs.work.telescopescloud;
+package com.work.vladimirs.rocketscloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TelescopesCloudApplication {
+public class RocketsCloudApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TelescopesCloudApplication.class, args);
+        SpringApplication.run(RocketsCloudApplication.class, args);
     }
 
 }

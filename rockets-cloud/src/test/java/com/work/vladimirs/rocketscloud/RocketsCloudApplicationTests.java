@@ -1,10 +1,10 @@
-package com.vladimirs.work.telescopescloud;
+package com.work.vladimirs.rocketscloud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TelescopesCloudApplicationTests {
+class RocketsCloudApplicationTests {
 
     @Test
     void contextLoads() {

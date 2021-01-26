@@ -1,4 +1,4 @@
-package com.vladimirs.work.telescopescloud.controllers;
+package com.work.vladimirs.rocketscloud.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
