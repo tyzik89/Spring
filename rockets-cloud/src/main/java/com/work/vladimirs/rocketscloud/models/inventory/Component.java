@@ -1,6 +1,6 @@
-package com.work.vladimirs.rocketscloud.inventory;
+package com.work.vladimirs.rocketscloud.models.inventory;
 
-public class Part {
+public class Component {
 
     public static enum Type {
         PODS, REACTION_WHEELS, ENGINES, FUEL_TANKS
@@ -10,7 +10,7 @@ public class Part {
     private final String name;
     private final Type type;
 
-    public Part(String id, String name, Type type) {
+    public Component(String id, String name, Type type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -33,11 +33,11 @@ public class Part {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Part part = (Part) o;
+        Component component = (Component) o;
 
-        if (!id.equals(part.id)) return false;
-        if (!name.equals(part.name)) return false;
-        return type == part.type;
+        if (!id.equals(component.id)) return false;
+        if (!name.equals(component.name)) return false;
+        return type == component.type;
     }
 
     @Override
@@ -50,7 +50,7 @@ public class Part {
 
     @Override
     public String toString() {
-        return "Parts{" +
+        return "Component{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", type=" + type +
