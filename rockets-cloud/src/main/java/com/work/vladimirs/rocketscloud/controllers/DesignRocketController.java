@@ -1,19 +1,18 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
-import com.work.vladimirs.rocketscloud.models.Rocket;
+import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/design")
@@ -51,7 +50,7 @@ public class DesignRocketController {
                     filterByType(components, type));
         }
 
-        model.addAttribute("design", new Rocket());
+        model.addAttribute("rocket", new Rocket());
 
         return "design";
     }
@@ -61,5 +60,11 @@ public class DesignRocketController {
                 .stream()
                 .filter(c -> type.equals(c.getType()))
                 .collect(Collectors.toList());
+    }
+
+    @PostMapping
+    public String processDesign(Rocket rocket) {
+        LOG.info("Processing rocket: {}", rocket);
+        return "redirect:/orders/current";
     }
 }
