@@ -7,9 +7,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.Errors;
 
+import javax.validation.Valid;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,7 +55,7 @@ public class DesignRocketController {
 
         model.addAttribute("rocket", new Rocket());
 
-        return "design";
+        return "designForm";
     }
 
     private List<Component> filterByType(List<Component> components, Component.Type type) {
@@ -63,7 +66,11 @@ public class DesignRocketController {
     }
 
     @PostMapping
-    public String processDesign(Rocket rocket) {
+    public String processDesign(@Valid @ModelAttribute("rocket") Rocket rocket, Errors errors, Model model) {
+        if (errors.hasErrors()) {
+            return "designForm";
+        }
+
         LOG.info("Processing rocket: {}", rocket);
         return "redirect:/orders/current";
     }

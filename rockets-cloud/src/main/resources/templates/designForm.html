@@ -12,6 +12,10 @@
 
         <form method="POST" th:object="${rocket}">
 
+            <span class="validationError"
+                  th:if="${#fields.hasErrors('components')}"
+                  th:errors="*{components}">components Error</span>
+
             <div class="grid">
 
                 <div class="component-group" id="pods">
@@ -55,6 +59,9 @@
             <div>
                 <h3>Name your rocket creation:</h3>
                 <input type="text" th:field="*{name}"/>
+                <span class="validationError"
+                      th:if="${#fields.hasErrors('name')}"
+                      th:errors="*{name}">Name Error</span>
                 <br/>
 
                 <button>Submit your rocket</button>
