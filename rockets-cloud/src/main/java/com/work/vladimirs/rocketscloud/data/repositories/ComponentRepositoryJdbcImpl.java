@@ -11,7 +11,6 @@ public class ComponentRepositoryJdbcImpl implements ComponentRepository {
 
     @Override
     public Iterable<Component> findAll() {
-        jdbcTemplate.
         return null;
     }
 
