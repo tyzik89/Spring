@@ -6,7 +6,13 @@ import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import java.util.Date;
+
 public class Order {
+
+    private Long id;
+
+    private Date placedAt;
 
     @NotBlank(message="Name is required")
     private String name;
@@ -99,6 +105,22 @@ public class Order {
         this.ccCVV = ccCVV;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getPlacedAt() {
+        return placedAt;
+    }
+
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -106,6 +128,8 @@ public class Order {
 
         Order order = (Order) o;
 
+        if (!id.equals(order.id)) return false;
+        if (!placedAt.equals(order.placedAt)) return false;
         if (!name.equals(order.name)) return false;
         if (!street.equals(order.street)) return false;
         if (!city.equals(order.city)) return false;
@@ -118,7 +142,9 @@ public class Order {
 
     @Override
     public int hashCode() {
-        int result = name.hashCode();
+        int result = id.hashCode();
+        result = 31 * result + placedAt.hashCode();
+        result = 31 * result + name.hashCode();
         result = 31 * result + street.hashCode();
         result = 31 * result + city.hashCode();
         result = 31 * result + state.hashCode();
@@ -132,7 +158,9 @@ public class Order {
     @Override
     public String toString() {
         return "Order{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", placedAt=" + placedAt +
+                ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
