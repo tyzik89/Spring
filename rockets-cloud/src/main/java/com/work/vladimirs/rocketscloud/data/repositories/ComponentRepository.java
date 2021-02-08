@@ -6,7 +6,7 @@ public interface ComponentRepository {
 
     Iterable<Component> findAll();
 
-    Component findOne(String id);
+    Component findById(String id);
 
     Component save(Component component);
 }

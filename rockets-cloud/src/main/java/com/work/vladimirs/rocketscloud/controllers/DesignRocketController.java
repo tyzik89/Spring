@@ -1,9 +1,11 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
+import com.work.vladimirs.rocketscloud.data.repositories.ComponentRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.validation.Errors;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,9 +26,16 @@ public class DesignRocketController {
 
     private static final Logger LOG = LoggerFactory.getLogger(DesignRocketController.class);
 
+    private final ComponentRepository componentRepository;
+
+    @Autowired
+    public DesignRocketController(ComponentRepository componentRepository) {
+        this.componentRepository = componentRepository;
+    }
+
     @GetMapping
     public String showDesignForm(Model model) {
-        List<Component> components = Arrays.asList(
+        /*List<Component> components = Arrays.asList(
                 new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS),
                 new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS),
                 new Component("PMK1CP", "PODS MK1 Command Pod", Component.Type.PODS),
@@ -43,7 +53,10 @@ public class DesignRocketController {
                 new Component("FFLT200", "FL-T200", Component.Type.FUEL_TANKS),
                 new Component("FFLT800", "FL-T400", Component.Type.FUEL_TANKS),
                 new Component("FR12", "R-12", Component.Type.FUEL_TANKS)
-        );
+        );*/
+
+        List<Component> components = new ArrayList<>();
+        componentRepository.findAll().forEach(i -> components.add(i));
 
         Component.Type[] types = Component.Type.values();
 
