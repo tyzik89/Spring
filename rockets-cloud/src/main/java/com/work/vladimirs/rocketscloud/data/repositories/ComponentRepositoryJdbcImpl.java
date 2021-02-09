@@ -1,6 +1,9 @@
 package com.work.vladimirs.rocketscloud.data.repositories;
 
+import com.work.vladimirs.rocketscloud.controllers.DesignRocketController;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,6 +14,8 @@ import java.sql.SQLException;
 
 @Repository
 public class ComponentRepositoryJdbcImpl implements ComponentRepository {
+
+    private static final Logger LOG = LoggerFactory.getLogger(ComponentRepositoryJdbcImpl.class);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

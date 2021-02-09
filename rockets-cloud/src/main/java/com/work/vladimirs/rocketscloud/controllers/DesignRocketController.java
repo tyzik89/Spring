@@ -1,17 +1,16 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
 import com.work.vladimirs.rocketscloud.data.repositories.ComponentRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.RocketRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
+import com.work.vladimirs.rocketscloud.models.services.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
 
 import javax.validation.Valid;
@@ -22,15 +21,29 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/design")
+@SessionAttributes("order")
 public class DesignRocketController {
 
     private static final Logger LOG = LoggerFactory.getLogger(DesignRocketController.class);
 
+    private final RocketRepository rocketRepository;
     private final ComponentRepository componentRepository;
 
     @Autowired
-    public DesignRocketController(ComponentRepository componentRepository) {
+    public DesignRocketController(ComponentRepository componentRepository, RocketRepository rocketRepository) {
         this.componentRepository = componentRepository;
+        this.rocketRepository = rocketRepository;
+    }
+
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+
+    @ModelAttribute(name = "rocket")
+    public Rocket rocket() {
+        return new Rocket();
     }
 
     @GetMapping
@@ -79,12 +92,15 @@ public class DesignRocketController {
     }
 
     @PostMapping
-    public String processDesign(@Valid @ModelAttribute("rocket") Rocket rocket, Errors errors, Model model) {
+    public String processDesign(@Valid Rocket rocket, @ModelAttribute Order order, Errors errors) {
         if (errors.hasErrors()) {
             return "designForm";
         }
 
-        LOG.info("Processing rocket: {}", rocket);
+        Rocket savedRocket = rocketRepository.save(rocket);
+        order.addRocket(savedRocket);
+
+        LOG.debug("Saved rocket: {}", savedRocket);
         return "redirect:/orders/current";
     }
 }

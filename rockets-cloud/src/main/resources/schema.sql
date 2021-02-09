@@ -14,7 +14,7 @@ create table if not exists Rocket (
 
 create table if not exists Rocket_Components (
     rocket bigint not null,
-    components varchar(10) not null
+    component varchar(10) not null
 );
 
 
@@ -23,7 +23,7 @@ alter table Rocket_Components
 
 
 alter table Rocket_Components
-    add foreign key (components) references Components(id);
+    add foreign key (component) references Components(id);
 
 
 create table if not exists Rocket_Order (

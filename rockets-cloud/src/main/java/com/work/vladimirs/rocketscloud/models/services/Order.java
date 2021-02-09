@@ -4,9 +4,11 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -37,6 +39,8 @@ public class Order {
 
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
+
+    List<Rocket> rockets;
 
     public Order() {
     }
@@ -120,6 +124,18 @@ public class Order {
     public void setPlacedAt(Date placedAt) {
         this.placedAt = placedAt;
     }
+
+    public List<Rocket> getRockets() {
+        return rockets;
+    }
+
+    public void setRockets(List<Rocket> rockets) {
+        this.rockets = rockets;
+    }
+
+    public void addRocket(Rocket rocket) {
+        rockets.add(rocket);
+    };
 
     @Override
     public boolean equals(Object o) {
