@@ -1,12 +1,12 @@
 package com.work.vladimirs.rocketscloud.models.services;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
-
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -17,19 +17,19 @@ public class Order {
     private Date placedAt;
 
     @NotBlank(message="Name is required")
-    private String name;
+    private String deliveryName;
 
     @NotBlank(message="Street is required")
-    private String street;
+    private String deliveryStreet;
 
     @NotBlank(message="City is required")
-    private String city;
+    private String deliveryCity;
 
     @NotBlank(message="State is required")
-    private String state;
+    private String deliveryState;
 
     @NotBlank(message="Zip is required")
-    private String zip;
+    private String deliveryZip;
 
     @CreditCardNumber(message="Not a valid credit card number")
     private String ccNumber;
@@ -40,49 +40,65 @@ public class Order {
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
 
-    List<Rocket> rockets;
+    private final List<Rocket> rockets = new ArrayList<>();
 
     public Order() {
     }
 
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getStreet() {
-        return street;
+    public Date getPlacedAt() {
+        return placedAt;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setPlacedAt(Date placedAt) {
+        this.placedAt = placedAt;
     }
 
-    public String getCity() {
-        return city;
+    public String getDeliveryName() {
+        return deliveryName;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setDeliveryName(String deliveryName) {
+        this.deliveryName = deliveryName;
     }
 
-    public String getState() {
-        return state;
+    public String getDeliveryStreet() {
+        return deliveryStreet;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setDeliveryStreet(String deliveryStreet) {
+        this.deliveryStreet = deliveryStreet;
     }
 
-    public String getZip() {
-        return zip;
+    public String getDeliveryCity() {
+        return deliveryCity;
     }
 
-    public void setZip(String zip) {
-        this.zip = zip;
+    public void setDeliveryCity(String deliveryCity) {
+        this.deliveryCity = deliveryCity;
+    }
+
+    public String getDeliveryState() {
+        return deliveryState;
+    }
+
+    public void setDeliveryState(String deliveryState) {
+        this.deliveryState = deliveryState;
+    }
+
+    public String getDeliveryZip() {
+        return deliveryZip;
+    }
+
+    public void setDeliveryZip(String deliveryZip) {
+        this.deliveryZip = deliveryZip;
     }
 
     public String getCcNumber() {
@@ -109,33 +125,13 @@ public class Order {
         this.ccCVV = ccCVV;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getPlacedAt() {
-        return placedAt;
-    }
-
-    public void setPlacedAt(Date placedAt) {
-        this.placedAt = placedAt;
-    }
-
     public List<Rocket> getRockets() {
         return rockets;
     }
 
-    public void setRockets(List<Rocket> rockets) {
-        this.rockets = rockets;
-    }
-
     public void addRocket(Rocket rocket) {
-        rockets.add(rocket);
-    };
+        this.rockets.add(rocket);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -146,28 +142,30 @@ public class Order {
 
         if (!id.equals(order.id)) return false;
         if (!placedAt.equals(order.placedAt)) return false;
-        if (!name.equals(order.name)) return false;
-        if (!street.equals(order.street)) return false;
-        if (!city.equals(order.city)) return false;
-        if (!state.equals(order.state)) return false;
-        if (!zip.equals(order.zip)) return false;
+        if (!deliveryName.equals(order.deliveryName)) return false;
+        if (!deliveryStreet.equals(order.deliveryStreet)) return false;
+        if (!deliveryCity.equals(order.deliveryCity)) return false;
+        if (!deliveryState.equals(order.deliveryState)) return false;
+        if (!deliveryZip.equals(order.deliveryZip)) return false;
         if (!ccNumber.equals(order.ccNumber)) return false;
         if (!ccExpiration.equals(order.ccExpiration)) return false;
-        return ccCVV.equals(order.ccCVV);
+        if (!ccCVV.equals(order.ccCVV)) return false;
+        return rockets.equals(order.rockets);
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + placedAt.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + street.hashCode();
-        result = 31 * result + city.hashCode();
-        result = 31 * result + state.hashCode();
-        result = 31 * result + zip.hashCode();
+        result = 31 * result + deliveryName.hashCode();
+        result = 31 * result + deliveryStreet.hashCode();
+        result = 31 * result + deliveryCity.hashCode();
+        result = 31 * result + deliveryState.hashCode();
+        result = 31 * result + deliveryZip.hashCode();
         result = 31 * result + ccNumber.hashCode();
         result = 31 * result + ccExpiration.hashCode();
         result = 31 * result + ccCVV.hashCode();
+        result = 31 * result + rockets.hashCode();
         return result;
     }
 
@@ -176,14 +174,15 @@ public class Order {
         return "Order{" +
                 "id=" + id +
                 ", placedAt=" + placedAt +
-                ", name='" + name + '\'' +
-                ", street='" + street + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", zip='" + zip + '\'' +
+                ", deliveryName='" + deliveryName + '\'' +
+                ", deliveryStreet='" + deliveryStreet + '\'' +
+                ", deliveryCity='" + deliveryCity + '\'' +
+                ", deliveryState='" + deliveryState + '\'' +
+                ", deliveryZip='" + deliveryZip + '\'' +
                 ", ccNumber='" + ccNumber + '\'' +
                 ", ccExpiration='" + ccExpiration + '\'' +
                 ", ccCVV='" + ccCVV + '\'' +
+                ", rockets=" + rockets +
                 '}';
     }
 }

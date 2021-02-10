@@ -8,12 +8,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Repository
 public class OrderRepositoryJdbcImpl implements OrderRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderRepositoryJdbcImpl.class);
@@ -60,7 +62,7 @@ public class OrderRepositoryJdbcImpl implements OrderRepository {
         long orderId = orderInserter
                 .executeAndReturnKey(values)
                 .longValue();
-        LOG.debug("orderId: {}", orderId);
+        LOG.info("orderId: {}", orderId);
         return orderId;
     }
 }

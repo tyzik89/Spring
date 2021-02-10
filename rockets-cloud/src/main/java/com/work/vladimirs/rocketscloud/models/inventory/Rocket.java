@@ -1,11 +1,9 @@
 package com.work.vladimirs.rocketscloud.models.inventory;
 
 
-
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,9 +17,8 @@ public class Rocket {
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
-    @NotNull(message = "You must choose at least 1 component")
     @Size(min = 1, message = "You must choose at least 1 component")
-    private List<Component> components;
+    private List<String> components = new ArrayList<>();
 
     public Rocket() {
     }
@@ -34,11 +31,11 @@ public class Rocket {
         this.name = name;
     }
 
-    public List<Component> getComponents() {
+    public List<String> getComponents() {
         return components;
     }
 
-    public void setComponents(List<Component> components) {
+    public void setComponents(List<String> components) {
         this.components = components;
     }
 
