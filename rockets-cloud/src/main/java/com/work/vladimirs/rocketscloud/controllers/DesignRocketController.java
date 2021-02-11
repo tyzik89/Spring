@@ -79,8 +79,6 @@ public class DesignRocketController {
                     filterByType(components, type));
         }
 
-        model.addAttribute("rocket", new Rocket());
-
         return "designForm";
     }
 
