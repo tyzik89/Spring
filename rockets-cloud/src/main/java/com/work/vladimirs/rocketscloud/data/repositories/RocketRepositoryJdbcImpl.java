@@ -31,19 +31,19 @@ public class RocketRepositoryJdbcImpl implements RocketRepository {
         long rocketId = saveRocketInfo(rocket);
         LOG.info("rocketId: {}", rocketId);
         rocket.setId(rocketId);
-        for (String component : rocket.getComponents()) {
+        for (Component component : rocket.getComponents()) {
             LOG.info("Save component: {}, for rocket: {}", component, rocket);
             saveComponentToRocket(component, rocketId);
         }
         return rocket;
     }
 
-    private void saveComponentToRocket(String component, long rocketId) {
+    private void saveComponentToRocket(Component component, long rocketId) {
         String query = "insert into Rocket_Components (rocket, component) values (?, ?)";
         jdbcTemplate.update(
                 query,
                 rocketId,
-                component
+                component.getId()
         );
     }
 

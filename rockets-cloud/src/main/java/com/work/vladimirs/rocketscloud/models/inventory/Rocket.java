@@ -18,7 +18,7 @@ public class Rocket {
     private String name;
 
     @Size(min = 1, message = "You must choose at least 1 component")
-    private List<String> components = new ArrayList<>();
+    private List<Component> components = new ArrayList<>();
 
     public Rocket() {
     }
@@ -31,11 +31,11 @@ public class Rocket {
         this.name = name;
     }
 
-    public List<String> getComponents() {
+    public List<Component> getComponents() {
         return components;
     }
 
-    public void setComponents(List<String> components) {
+    public void setComponents(List<Component> components) {
         this.components = components;
     }
 

@@ -35,6 +35,17 @@ public class DesignRocketController {
         this.rocketRepository = rocketRepository;
     }
 
+    @ModelAttribute(name = "order")
+    public Order order() {
+        return new Order();
+    }
+
+
+    @ModelAttribute(name = "rocket")
+    public Rocket rocket() {
+        return new Rocket();
+    }
+
     @GetMapping
     public String showDesignForm(Model model) {
         /*List<Component> components = Arrays.asList(
@@ -80,19 +91,8 @@ public class DesignRocketController {
                 .collect(Collectors.toList());
     }
 
-    @ModelAttribute(name = "order")
-    public Order order() {
-        return new Order();
-    }
-
-
-    @ModelAttribute(name = "rocket")
-    public Rocket rocket() {
-        return new Rocket();
-    }
-
     @PostMapping
-    public String processDesign(Rocket rocket, @ModelAttribute Order order, Errors errors) {
+    public String processDesign(@Valid Rocket rocket, @ModelAttribute Order order, Errors errors) {
         if (errors.hasErrors()) {
             return "designForm";
         }
