@@ -90,9 +90,9 @@ public class DesignRocketController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Rocket rocket, @ModelAttribute Order order, Errors errors) {
+    public String processDesign(@Valid Rocket rocket, Errors errors, @ModelAttribute Order order, Model model) {
         if (errors.hasErrors()) {
-            return "designForm";
+            return showDesignForm(model);
         }
 
         LOG.info("Process design for rocket: {}", rocket);
