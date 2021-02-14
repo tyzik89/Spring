@@ -19,4 +19,12 @@ public class ComponentByIdConverterFromModel implements Converter<String, Compon
     public Component convert(String id) {
         return componentRepository.findById(id);
     }
+
+    /*// Конвертация для JPA
+    @Override
+    public Ingredient convert(String id) {
+        Optional<Ingredient> optionalIngredient = ingredientRepo.findById(id);
+        return optionalIngredient.isPresent() ?
+                optionalIngredient.get() : null;
+    }*/
 }
