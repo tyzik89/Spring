@@ -1,7 +1,7 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
-import com.work.vladimirs.rocketscloud.data.repositories.jdbc.ComponentRepository;
 import com.work.vladimirs.rocketscloud.data.repositories.jdbc.RocketRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jdbc.ComponentRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import com.work.vladimirs.rocketscloud.models.services.Order;
@@ -69,7 +69,7 @@ public class DesignRocketController {
 
         List<Component> components = new ArrayList<>();
         componentRepository.findAll().forEach(i -> components.add(i));
-
+        LOG.info("components: {}", components);
         Component.Type[] types = Component.Type.values();
 
         for (Component.Type type : types) {
