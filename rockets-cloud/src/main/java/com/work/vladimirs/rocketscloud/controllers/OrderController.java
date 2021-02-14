@@ -1,12 +1,11 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
-import com.work.vladimirs.rocketscloud.data.repositories.OrderRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jdbc.OrderRepository;
 import com.work.vladimirs.rocketscloud.models.services.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;

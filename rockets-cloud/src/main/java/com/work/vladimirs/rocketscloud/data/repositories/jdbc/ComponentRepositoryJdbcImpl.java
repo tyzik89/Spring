@@ -1,12 +1,10 @@
-package com.work.vladimirs.rocketscloud.data.repositories;
+package com.work.vladimirs.rocketscloud.data.repositories.jdbc;
 
-import com.work.vladimirs.rocketscloud.controllers.DesignRocketController;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;

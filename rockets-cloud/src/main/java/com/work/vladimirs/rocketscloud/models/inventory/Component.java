@@ -1,14 +1,28 @@
 package com.work.vladimirs.rocketscloud.models.inventory;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity   //Using for JPA
+@Table(name = "Components")   //Using for JPA
 public class Component {
 
     public static enum Type {
         PODS, REACTION_WHEELS, ENGINES, FUEL_TANKS
     }
 
+    @Id   //Using for JPA
     private final String id;
     private final String name;
     private final Type type;
+
+    //Конструктор по умолчанию, необходим для JPA
+    private Component() {
+        this.id = null;
+        this.name = null;
+        this.type = null;
+    }
 
     public Component(String id, String name, Type type) {
         this.id = id;

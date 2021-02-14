@@ -1,7 +1,7 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
-import com.work.vladimirs.rocketscloud.data.repositories.ComponentRepository;
-import com.work.vladimirs.rocketscloud.data.repositories.RocketRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jdbc.ComponentRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jdbc.RocketRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import com.work.vladimirs.rocketscloud.models.services.Order;
@@ -15,7 +15,6 @@ import org.springframework.validation.Errors;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 

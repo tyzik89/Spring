@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.data.repositories;
+package com.work.vladimirs.rocketscloud.data.repositories.jdbc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;

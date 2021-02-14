@@ -1,22 +1,26 @@
 package com.work.vladimirs.rocketscloud.models.inventory;
 
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Entity   //Using for JPA
 public class Rocket {
 
+    @Id   //Using for JPA
+    @GeneratedValue(strategy = GenerationType.AUTO)   //Using for JPA
     private Long id;
-
     private Date createAt;
 
     @NotNull
     @Size(min = 3, message = "Name must be at least 3 characters long")
     private String name;
 
+    @ManyToMany(targetEntity = Component.class)   //Using for JPA
     @Size(min = 1, message = "You must choose at least 1 component")
     private List<Component> components = new ArrayList<>();
 
@@ -53,6 +57,11 @@ public class Rocket {
 
     public void setCreateAt(Date createAt) {
         this.createAt = createAt;
+    }
+
+    @PrePersist //Using for JPA
+    public void createdAt() {
+        this.createAt = new Date();
     }
 
     @Override
