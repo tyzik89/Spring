@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
    @Qualifier("userRepositoryUserDetailsService")
    @Autowired
     private UserDetailsService userDetailsService;
+
+    /**
+     * Метод используется для конфигурации работы секьюрити на веб уровне.
+     * HttpSecurity позволяет в частности:
+     * 1. Соблюдение условий безопасности, прежде чем обрабатывать запрос
+     * 2. Настройка пользовательской страницы входа
+     * 3. Предоставление выхода из приложения пользователем
+     * 4. Настройка защиты от подделки межсайтовых запросов
+     */
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .antMatchers("/design", "/orders")
+                    .access("hasRole('ROLE_USER')") // Выражение SpEL Spring Expression Language
+                   // .hasRole("ROLE_USER")
+                .antMatchers("/", "/**")
+                    //.permitAll();
+                    .access("permitAll");   // Выражение SpEL Spring Expression Language
+
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
