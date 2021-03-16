@@ -8,6 +8,10 @@
         <h1>Welcome to ...</h1>
         <img th:src="@{/images/RocketsCloud.png}"/>
 
+        <form method="POST" th:action="@{/logout}" id="logoutForm">
+            <input type="submit" value="Logout"/>
+        </form>
+
         <form method="get" action="/design">
             <button >Create your rocket!</button>
         </form>

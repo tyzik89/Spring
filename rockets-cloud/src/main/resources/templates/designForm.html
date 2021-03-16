@@ -10,6 +10,10 @@
         <h1>Design your rocket!</h1>
         <img th:src="@{/images/RocketsCloud.png}"/>
 
+        <form method="POST" th:action="@{/logout}" id="logoutForm">
+            <input type="submit" value="Logout"/>
+        </form>
+
         <form method="POST" th:object="${rocket}">
 
             <span class="validationError"

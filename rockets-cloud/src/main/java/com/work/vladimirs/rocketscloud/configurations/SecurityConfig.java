@@ -37,11 +37,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             .authorizeRequests()
                 .antMatchers("/design", "/orders")
-                    .access("hasRole('ROLE_USER')") // Выражение SpEL Spring Expression Language
-                   // .hasRole("ROLE_USER")
+                    .hasRole("USER")
+//                    .access("hasRole('USER')") // Выражение SpEL Spring Expression Language
                 .antMatchers("/", "/**")
-                    //.permitAll();
-                    .access("permitAll");   // Выражение SpEL Spring Expression Language
+                    .permitAll()
+//                    .access("permitAll");   // Выражение SpEL Spring Expression Language
+            .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/design")    // дефолтная страница при успешном логине
+
+            .and()
+                .logout()
+                    .logoutSuccessUrl("/")      //дефолтная страница при выходе из сессии
+        ;
+
+//                .loginProcessingUrl("/authenticate")      //Кастомизация пути и имён полей
+//                .usernameParameter("user")
+//                .passwordParameter("pwd");
 
     }
 
