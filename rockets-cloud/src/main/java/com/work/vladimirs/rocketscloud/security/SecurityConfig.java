@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.configurations;
+package com.work.vladimirs.rocketscloud.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

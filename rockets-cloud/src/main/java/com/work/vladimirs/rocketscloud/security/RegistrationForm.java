@@ -1,11 +1,11 @@
-package com.work.vladimirs.rocketscloud.controllers.utils;
+package com.work.vladimirs.rocketscloud.security;
 
 import com.work.vladimirs.rocketscloud.models.entities.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * HTTP POST из формы registrationForm.html привязывается к реквест-данным. Объект RegistrationForm используетс яв методе
- * com.work.vladimirs.rocketscloud.controllers.RegistrationController#processRegistration(com.work.vladimirs.rocketscloud.controllers.utils.RegistrationForm)
+ * com.work.vladimirs.rocketscloud.security.RegistrationController#processRegistration(com.work.vladimirs.rocketscloud.security.RegistrationForm)
  */
 public class RegistrationForm {
 

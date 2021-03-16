@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.controllers;
+package com.work.vladimirs.rocketscloud.web;
 
 import com.work.vladimirs.rocketscloud.data.repositories.jdbc.OrderRepository;
 import com.work.vladimirs.rocketscloud.models.services.Order;

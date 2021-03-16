@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.configurations;
+package com.work.vladimirs.rocketscloud.security;
 
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.UserRepository;
 import com.work.vladimirs.rocketscloud.models.entities.User;

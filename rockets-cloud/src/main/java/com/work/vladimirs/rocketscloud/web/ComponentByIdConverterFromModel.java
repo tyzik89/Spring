@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.controllers.utils;
+package com.work.vladimirs.rocketscloud.web;
 
 import com.work.vladimirs.rocketscloud.data.repositories.jdbc.ComponentRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;

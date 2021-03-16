@@ -1,6 +1,5 @@
-package com.work.vladimirs.rocketscloud.controllers;
+package com.work.vladimirs.rocketscloud.security;
 
-import com.work.vladimirs.rocketscloud.controllers.utils.RegistrationForm;
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
