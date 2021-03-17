@@ -22,6 +22,7 @@ public class Order implements Serializable {   //Using for JPA
     @Id   //Using for JPA
     @GeneratedValue(strategy = GenerationType.AUTO)   //Using for JPA
     private Long id;
+
     private Date placedAt;
 
     @NotBlank(message="Name is required")
