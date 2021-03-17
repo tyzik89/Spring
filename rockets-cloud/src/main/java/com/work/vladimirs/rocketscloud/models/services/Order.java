@@ -1,5 +1,6 @@
 package com.work.vladimirs.rocketscloud.models.services;
 
+import com.work.vladimirs.rocketscloud.models.entities.User;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
@@ -49,6 +50,9 @@ public class Order implements Serializable {   //Using for JPA
 
     @ManyToMany(targetEntity = Rocket.class)   //Using for JPA
     private final List<Rocket> rockets = new ArrayList<>();
+
+    @ManyToOne              // User may have many orders and order belongs to a single user
+    private User user;      //Used to for saving order in user account
 
     public Order() {
     }
@@ -131,6 +135,14 @@ public class Order implements Serializable {   //Using for JPA
 
     public void setCcCVV(String ccCVV) {
         this.ccCVV = ccCVV;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<Rocket> getRockets() {
