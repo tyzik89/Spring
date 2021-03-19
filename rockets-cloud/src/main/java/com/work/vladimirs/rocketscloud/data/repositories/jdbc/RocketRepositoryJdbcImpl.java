@@ -17,7 +17,8 @@ import java.sql.Types;
 import java.util.Arrays;
 import java.util.Date;
 
-@Repository
+//@Repository
+@Deprecated
 public class RocketRepositoryJdbcImpl implements RocketRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(RocketRepositoryJdbcImpl.class);

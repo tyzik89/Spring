@@ -15,7 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+//@Repository
+@Deprecated
 public class OrderRepositoryJdbcImpl implements OrderRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderRepositoryJdbcImpl.class);

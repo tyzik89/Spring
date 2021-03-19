@@ -10,7 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-@Repository
+//@Repository
+@Deprecated
 public class ComponentRepositoryJdbcImpl implements ComponentRepository {
 
     private static final Logger LOG = LoggerFactory.getLogger(ComponentRepositoryJdbcImpl.class);

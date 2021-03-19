@@ -1,6 +1,6 @@
 package com.work.vladimirs.rocketscloud.web;
 
-import com.work.vladimirs.rocketscloud.data.repositories.jdbc.OrderRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jpa.OrderRepository;
 import com.work.vladimirs.rocketscloud.models.entities.User;
 import com.work.vladimirs.rocketscloud.models.services.Order;
 import org.slf4j.Logger;

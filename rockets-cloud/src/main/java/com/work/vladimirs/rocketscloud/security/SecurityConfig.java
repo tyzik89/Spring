@@ -50,6 +50,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
                 .logout()
                     .logoutSuccessUrl("/")      //дефолтная страница при выходе из сессии
+
+
+            // Исключительно для дев-разработки. Чтобы работала консоль H2
+            // Disable X-Frame-Options in Spring Security
+            // Allow pages to be loaded in frames from the same origin; needed for H2-Console
+            .and()
+                .headers()
+                    .frameOptions()
+                        .sameOrigin()
+
+            // Disable CSRF protection
+            // Make H2-Console non-secured; for debug purposes
+            .and()
+                .csrf()
+                    .ignoringAntMatchers("/h2-console/**")
+
         ;
 
 //                .loginProcessingUrl("/authenticate")      //Кастомизация пути и имён полей

@@ -1,7 +1,7 @@
 package com.work.vladimirs.rocketscloud.web;
 
-import com.work.vladimirs.rocketscloud.data.repositories.jdbc.RocketRepository;
-import com.work.vladimirs.rocketscloud.data.repositories.jdbc.ComponentRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jpa.RocketRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jpa.ComponentRepository;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import com.work.vladimirs.rocketscloud.models.services.Order;
