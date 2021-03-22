@@ -54,3 +54,9 @@ values ('FFLT800', 'FL-T400', 'FUEL_TANKS');
 
 insert into Components (id, name, type)
 values ('FR12', 'R-12', 'FUEL_TANKS');
+
+
+
+-- insert into USER (id, city, fullname, password, phone_number, state, street, username, zip)
+-- values (1, 'Voronezh', 'Vladimir', 'a29f02f84ac3f61ac48a4c5809b4a53fd0dc5eeafe1a43f2fa7786a93d3ecfcd50a0a6404fdbf619',
+--  '89056580568', '36', 'Studencheskaya 34, 123', 'user', '123456')

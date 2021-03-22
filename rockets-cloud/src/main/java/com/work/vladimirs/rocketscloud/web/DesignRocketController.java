@@ -15,6 +15,7 @@ import org.springframework.validation.Errors;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +23,6 @@ import java.util.stream.Collectors;
 @RequestMapping("/design")
 @SessionAttributes("order")
 public class DesignRocketController {
-
     private static final Logger LOG = LoggerFactory.getLogger(DesignRocketController.class);
 
     private final RocketRepository rocketRepository;

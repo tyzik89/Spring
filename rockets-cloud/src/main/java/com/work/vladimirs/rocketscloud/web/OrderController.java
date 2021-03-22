@@ -6,6 +6,7 @@ import com.work.vladimirs.rocketscloud.models.services.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,11 +21,17 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("order")
+@ConfigurationProperties(prefix = "rocket.orders")
 public class OrderController {
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderController.class);
 
     private OrderRepository orderRepository;
+    private int pageSize = 20;
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
     @Autowired
     public OrderController(OrderRepository orderRepository) {
@@ -33,6 +40,7 @@ public class OrderController {
 
     @GetMapping("/current")
     public String orderForm() {
+        LOG.debug("pageSize = {}", pageSize);
         return "orderForm";
     }
 
