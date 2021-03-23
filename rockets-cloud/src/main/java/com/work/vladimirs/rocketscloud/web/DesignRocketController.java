@@ -69,7 +69,6 @@ public class DesignRocketController {
 
         List<Component> components = new ArrayList<>();
         componentRepository.findAll().forEach(i -> components.add(i));
-        LOG.info("components: {}", components);
         Component.Type[] types = Component.Type.values();
 
         for (Component.Type type : types) {
