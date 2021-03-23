@@ -1,8 +1,6 @@
 package com.work.vladimirs.rocketscloud.models.inventory;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity   //Using for JPA
 @Table(name = "Components")   //Using for JPA
@@ -15,6 +13,8 @@ public class Component {
     @Id   //Using for JPA
     private final String id;
     private final String name;
+
+    @Enumerated(EnumType.STRING)
     private final Type type;
 
     //Конструктор по умолчанию, необходим для JPA
