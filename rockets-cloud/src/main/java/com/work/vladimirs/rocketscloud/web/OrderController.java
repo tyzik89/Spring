@@ -75,7 +75,7 @@ public class OrderController {
             @AuthenticationPrincipal User user,
             Model model) {
 
-        Pageable pageable = PageRequest.of(0, 20);
+        Pageable pageable = PageRequest.of(0, pageSize);
 
         model.addAttribute("orders", orderRepository.findByUserOrderByPlacedAtDesc(user, pageable));
 

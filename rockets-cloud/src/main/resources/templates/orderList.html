@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rockets Cloud</title>
+    <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+    <img th:src="@{/images/RocketsCloud.png}"/>
+
+    <form method="POST" th:action="@{/logout}" id="logoutForm">
+        <input type="submit" value="Logout"/>
+    </form>
+
+    <a th:href="@{/design}" id="another">Design another rocket</a>
+    <br/>
+
+    <h1>Your rockets</h1>
+
+    <ul>
+        <li th:each="order : ${orders}">
+            <span th:text="${order.placedAt}">DATE</span> -
+            <span th:text="${order.deliveryName}">NAME</span>
+            <ul>
+                <li th:each="rocket : ${order.rockets}">
+                    <span th:text="${rocket.name}"></span> :
+                    <span th:each="component : ${rocket.components}">
+                  <span th:text="${component.name}">COMPONENT</span>,
+                </span>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</body>
+
+</html>

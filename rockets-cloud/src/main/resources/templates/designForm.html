@@ -7,12 +7,15 @@
     <link rel="stylesheet" th:href="@{/styles.css}" />
 </head>
     <body>
-        <h1>Design your rocket!</h1>
+        <h1>Hello <span th:text="${user.fullname}">NAME</span>! Time to design your rocket!</h1>
         <img th:src="@{/images/RocketsCloud.png}"/>
 
         <form method="POST" th:action="@{/logout}" id="logoutForm">
             <input type="submit" value="Logout"/>
         </form>
+
+        <a th:href="@{/orders}" id="order_list">Show orders list</a>
+        <br/>
 
         <form method="POST" th:object="${rocket}" th:action="@{/design}" id="designForm">
 

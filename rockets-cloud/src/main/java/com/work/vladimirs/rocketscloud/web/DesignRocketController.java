@@ -2,6 +2,8 @@ package com.work.vladimirs.rocketscloud.web;
 
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.RocketRepository;
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.ComponentRepository;
+import com.work.vladimirs.rocketscloud.data.repositories.jpa.UserRepository;
+import com.work.vladimirs.rocketscloud.models.entities.User;
 import com.work.vladimirs.rocketscloud.models.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.models.inventory.Component;
 import com.work.vladimirs.rocketscloud.models.services.Order;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.Errors;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -27,11 +30,13 @@ public class DesignRocketController {
 
     private final RocketRepository rocketRepository;
     private final ComponentRepository componentRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public DesignRocketController(ComponentRepository componentRepository, RocketRepository rocketRepository) {
+    public DesignRocketController(ComponentRepository componentRepository, RocketRepository rocketRepository, UserRepository userRepository) {
         this.componentRepository = componentRepository;
         this.rocketRepository = rocketRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute(name = "order")
@@ -46,7 +51,7 @@ public class DesignRocketController {
     }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
         /*List<Component> components = Arrays.asList(
                 new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS),
                 new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS),
@@ -77,6 +82,10 @@ public class DesignRocketController {
                     filterByType(components, type));
         }
 
+        String username = principal.getName();
+        User user = userRepository.findByUsername(username);
+        model.addAttribute("user", user);
+
         return "designForm";
     }
 
@@ -88,9 +97,9 @@ public class DesignRocketController {
     }
 
     @PostMapping
-    public String processDesign(@Valid Rocket rocket, Errors errors, @ModelAttribute Order order, Model model) {
+    public String processDesign(@Valid Rocket rocket, Errors errors, @ModelAttribute Order order, Model model, Principal principal) {
         if (errors.hasErrors()) {
-            return showDesignForm(model);
+            return showDesignForm(model, principal);
         }
 
         LOG.info("Process design for rocket: {}", rocket);
