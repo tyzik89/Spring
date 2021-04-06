@@ -21,26 +21,21 @@ import javax.validation.Valid;
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("order")
-@ConfigurationProperties(prefix = "rocket.orders")
 public class OrderController {
 
     private static final Logger LOG = LoggerFactory.getLogger(OrderController.class);
 
     private OrderRepository orderRepository;
-    private int pageSize = 20;
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
+    private OrderProps props;
 
     @Autowired
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(OrderRepository orderRepository, OrderProps orderProps) {
         this.orderRepository = orderRepository;
+        this.props = orderProps;
     }
 
     @GetMapping("/current")
     public String orderForm() {
-        LOG.debug("pageSize = {}", pageSize);
         return "orderForm";
     }
 
@@ -75,7 +70,7 @@ public class OrderController {
             @AuthenticationPrincipal User user,
             Model model) {
 
-        Pageable pageable = PageRequest.of(0, pageSize);
+        Pageable pageable = PageRequest.of(0, props.getPageSize());
 
         model.addAttribute("orders", orderRepository.findByUserOrderByPlacedAtDesc(user, pageable));
 
