@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.web;
+package com.work.vladimirs.rocketscloud.web.design;
 
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.RocketRepository;
 import com.work.vladimirs.rocketscloud.data.repositories.jpa.ComponentRepository;
@@ -18,7 +18,6 @@ import org.springframework.validation.Errors;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
