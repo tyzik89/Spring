@@ -1,5 +1,6 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
+import com.work.vladimirs.rocketscloud.web.HomeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,8 +10,7 @@ import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-//@WebMvcTest(HomeController.class)   // As HomeController is deprecated. Now used config WebConfig
-@WebMvcTest()
+@WebMvcTest(HomeController.class)
 class HomeControllerTest {
 
     @Autowired
@@ -21,6 +21,6 @@ class HomeControllerTest {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("home"))
-                .andExpect(content().string(containsString("Welcome to ...")));
+                .andExpect(content().string(containsString("Welcome to")));
     }
 }

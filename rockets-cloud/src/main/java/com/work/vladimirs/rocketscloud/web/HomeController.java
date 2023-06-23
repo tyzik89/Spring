@@ -8,8 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * UPD: Вместо него теперь использутеся WebConfig,
  * т.к. этот контроллер довольно простой, чтобы заводить отдельный класс.
  */
-@Deprecated
-//@Controller
+@Controller
 public class HomeController {
 
     @GetMapping("/")
