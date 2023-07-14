@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.web;
+package com.work.vladimirs.rocketscloud.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
  * UPD: Вместо него теперь использутеся WebConfig,
  * т.к. этот контроллер довольно простой, чтобы заводить отдельный класс.
  */
-@Controller
+@Deprecated
+//@Controller
 public class HomeController {
 
     @GetMapping("/")
