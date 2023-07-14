@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Rockets Cloud</title>
+  <link rel="stylesheet" th:href="@{/styles.css}" />
+</head>
+
+<body>
+<h1>Hello! Time to design your rocket!</h1> <!--<span th:text="${user.fullname}">NAME</span>-->
+<img th:src="@{/images/RocketsCloud.png}"/>
+
+<!--    <form method="POST" th:action="@{/logout}" id="logoutForm">-->
+<!--        <input type="submit" value="Logout"/>-->
+<!--    </form>-->
+
+<!--    <a th:href="@{/orders}" id="order_list">Show orders list</a>-->
+<!--    <br/>-->
+
+<form method="POST" th:object="${rocket}"> <!--th:action="@{/design}" id="designForm"-->
+  
+  <!--        <span class="validationError"-->
+  <!--              th:if="${#fields.hasErrors('components')}"-->
+  <!--              th:errors="*{components}">Component Error</span>-->
+  
+  <div class="grid">
+    
+    <div class="component-group" id="pods">
+      <h3>Designate your pod:</h3>
+      <div th:each="component : ${pods}">
+        <input th:field="*{components}" type="checkbox" th:value="${component.id}"/>
+        <span th:text="${component.name}">COMPONENT</span>
+        <br/>
+      </div>
+    </div>
+    
+    <div class="component-group" id="reaction_wheels">
+      <h3>Pick your reaction wheels:</h3>
+      <div th:each="component : ${reaction_wheels}">
+        <input th:field="*{components}" type="checkbox" th:value="${component.id}"/>
+        <span th:text="${component.name}">COMPONENT</span>
+        <br/>
+      </div>
+    </div>
+    
+    <div class="component-group" id="engines">
+      <h3>Pick your engines:</h3>
+      <div th:each="component : ${engines}">
+        <input th:field="*{components}" type="checkbox" th:value="${component.id}"/>
+        <span th:text="${component.name}">COMPONENT</span>
+        <br/>
+      </div>
+    </div>
+    
+    <div class="component-group" id="fuel_tanks">
+      <h3>Pick your fuel tanks:</h3>
+      <div th:each="component : ${fuel_tanks}">
+        <input th:field="*{components}" type="checkbox" th:value="${component.id}"/>
+        <span th:text="${component.name}">COMPONENT</span>
+        <br/>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div>
+    <h3>Name your rocket creation:</h3>
+    <input type="text" th:field="*{name}"/>
+    <span class="validationError"
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">Rocket name Error</span>
+    <br/>
+    <button>Submit your rocket</button>
+  </div>
+
+</form>
+</body>
+</html>
