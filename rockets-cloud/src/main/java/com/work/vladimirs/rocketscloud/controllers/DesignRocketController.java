@@ -3,17 +3,20 @@ package com.work.vladimirs.rocketscloud.controllers;
 import com.work.vladimirs.rocketscloud.inventory.Component;
 import com.work.vladimirs.rocketscloud.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
+import com.work.vladimirs.rocketscloud.repositories.ComponentRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Controller
@@ -21,33 +24,58 @@ import java.util.stream.Collectors;
 @SessionAttributes("rocketOrder")
 public class DesignRocketController {
 
+    private final ComponentRepository componentRepository;
+
+    @Autowired
+    public DesignRocketController(ComponentRepository componentRepository) {
+        this.componentRepository = componentRepository;
+    }
+
+//    /**
+//     * Добавление компонентов вручную
+//     */
+//    @ModelAttribute
+//    public void addComponentsToModel(Model model) {
+//        List<Component> components = Arrays.asList(
+//            new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS),
+//            new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS),
+//            new Component("PMK1CP", "PODS MK1 Command Pod", Component.Type.PODS),
+//            new Component("PMK2CP", "PODS MK2 Command Pod", Component.Type.PODS),
+//
+//            new Component("RWI", "RW Inline", Component.Type.REACTION_WHEELS),
+//            new Component("RWA", "RW Advanced", Component.Type.REACTION_WHEELS),
+//
+//            new Component("ELVT30", "LV-T30", Component.Type.ENGINES),
+//            new Component("ELVT45", "LVT-45", Component.Type.ENGINES),
+//            new Component("EREL10", "RE-L10", Component.Type.ENGINES),
+//            new Component("EREI5", "RE-I5", Component.Type.ENGINES),
+//
+//            new Component("FFLT100", "FL-T100", Component.Type.FUEL_TANKS),
+//            new Component("FFLT200", "FL-T200", Component.Type.FUEL_TANKS),
+//            new Component("FFLT800", "FL-T400", Component.Type.FUEL_TANKS),
+//            new Component("FR12", "R-12", Component.Type.FUEL_TANKS)
+//        );
+//        Component.Type[] types = Component.Type.values();
+//        for (Component.Type type : types) {
+//            model.addAttribute(
+//                    type.toString().toLowerCase(),
+//                    filterByType(components, type)
+//            );
+//        }
+//    }
+
+    /**
+     * Добавление компонентов через БД
+     */
     @ModelAttribute
     public void addComponentsToModel(Model model) {
-        List<Component> components = Arrays.asList(
-            new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS),
-            new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS),
-            new Component("PMK1CP", "PODS MK1 Command Pod", Component.Type.PODS),
-            new Component("PMK2CP", "PODS MK2 Command Pod", Component.Type.PODS),
-
-            new Component("RWI", "RW Inline", Component.Type.REACTION_WHEELS),
-            new Component("RWA", "RW Advanced", Component.Type.REACTION_WHEELS),
-
-            new Component("ELVT30", "LV-T30", Component.Type.ENGINES),
-            new Component("ELVT45", "LVT-45", Component.Type.ENGINES),
-            new Component("EREL10", "RE-L10", Component.Type.ENGINES),
-            new Component("EREI5", "RE-I5", Component.Type.ENGINES),
-
-            new Component("FFLT100", "FL-T100", Component.Type.FUEL_TANKS),
-            new Component("FFLT200", "FL-T200", Component.Type.FUEL_TANKS),
-            new Component("FFLT800", "FL-T400", Component.Type.FUEL_TANKS),
-            new Component("FR12", "R-12", Component.Type.FUEL_TANKS)
-        );
+        List<Component> components = new ArrayList<>();
+        componentRepository.findAll().forEach(components::add);
         Component.Type[] types = Component.Type.values();
         for (Component.Type type : types) {
             model.addAttribute(
                     type.toString().toLowerCase(),
-                    filterByType(components, type)
-            );
+                    filterByType(components, type));
         }
     }
 

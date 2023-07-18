@@ -1,6 +1,7 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
 import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
+import com.work.vladimirs.rocketscloud.repositories.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
@@ -18,6 +19,12 @@ import javax.validation.Valid;
 @SessionAttributes("rocketOrder")
 public class OrderController {
 
+    private final OrderRepository orderRepository;
+
+    public OrderController(OrderRepository orderRepository) {
+        this.orderRepository = orderRepository;
+    }
+
     @GetMapping("/current")
     public String orderForm() {
         return "orderForm";
@@ -30,7 +37,8 @@ public class OrderController {
         if (errors.hasErrors()) {
             return "orderForm";
         }
-        log.info("order submitted: {}", order);
+        orderRepository.save(order);
+        log.info("Order saved: {}", order);
         sessionStatus.setComplete(); // Очистка сеанса и объекта RocketOrder после подтверждения заказа
         return "redirect:/";
     }
