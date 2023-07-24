@@ -2,6 +2,9 @@ package com.work.vladimirs.rocketscloud.inventory;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
@@ -12,13 +15,16 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@Table("Rocket_Order") // нужно для Spring Data, явное задание имени таблицы
 public class RocketOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @Id // нужно для Spring Data
     private Long id;
-    private Date placeAt;
+    private Date placeAt = new Date();
 
+    @Column("delivery_name") // нужно для Spring Data, явное задание имени столбца
     @NotBlank(message = "Delivery name is required")
     private String deliveryName;
     @NotBlank(message = "Street is required")

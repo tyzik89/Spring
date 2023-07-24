@@ -18,7 +18,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+// Т.к. Spring data jdbc автоматом создаёт реализации, надобность в этом репозитории отпадает
+//@Repository
+@Deprecated
 public class JdbcOrderRepository implements OrderRepository {
 
     private final JdbcOperations jdbcOperations;
