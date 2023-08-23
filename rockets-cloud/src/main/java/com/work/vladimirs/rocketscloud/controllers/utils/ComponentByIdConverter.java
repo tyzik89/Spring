@@ -1,7 +1,7 @@
 package com.work.vladimirs.rocketscloud.controllers.utils;
 
 import com.work.vladimirs.rocketscloud.inventory.Component;
-import com.work.vladimirs.rocketscloud.repositories.ComponentRepository;
+import com.work.vladimirs.rocketscloud.repositories.jdbc.ComponentRepositoryJDBC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
@@ -11,11 +11,11 @@ import org.springframework.core.convert.converter.Converter;
 @org.springframework.stereotype.Component
 class ComponentByIdConverter implements Converter<String, Component> {
 
-    private final ComponentRepository componentRepository;
+    private final ComponentRepositoryJDBC componentRepositoryJDBC;
 
     @Autowired
-    public ComponentByIdConverter(ComponentRepository componentRepository) {
-        this.componentRepository = componentRepository;
+    public ComponentByIdConverter(ComponentRepositoryJDBC componentRepositoryJDBC) {
+        this.componentRepositoryJDBC = componentRepositoryJDBC;
     }
 
     /**
@@ -23,7 +23,7 @@ class ComponentByIdConverter implements Converter<String, Component> {
      */
     @Override
     public Component convert(String s) {
-        return componentRepository.findById(s).orElse(null);
+        return componentRepositoryJDBC.findById(s).orElse(null);
     }
 
 //    /**

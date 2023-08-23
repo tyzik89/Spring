@@ -2,10 +2,9 @@ package com.work.vladimirs.rocketscloud.inventory;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -15,12 +14,16 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@Table("Rocket_Order") // нужно для Spring Data, явное задание имени таблицы
+//@Table("Rocket_Order") // нужно для Spring Data, явное задание имени таблицы
+@Entity // нужно для JPA
+@Table(name = "Rocket_Order") // нужно для JPA
 public class RocketOrder implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id // нужно для Spring Data
+//    @Id // нужно для Spring Data
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date placeAt = new Date();
 
@@ -42,6 +45,7 @@ public class RocketOrder implements Serializable {
     private String ccExpiration;
     @Digits(integer = 3, fraction = 0, message = "Invalid CVV")
     private String ccCVV;
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Rocket> rockets = new ArrayList<>();
 
     public void addRocket(Rocket rocket) {

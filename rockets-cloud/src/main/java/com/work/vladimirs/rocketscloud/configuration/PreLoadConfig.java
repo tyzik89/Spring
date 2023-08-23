@@ -1,10 +1,9 @@
 package com.work.vladimirs.rocketscloud.configuration;
 
-import com.work.vladimirs.rocketscloud.repositories.ComponentRepository;
+import com.work.vladimirs.rocketscloud.inventory.Component;
+import com.work.vladimirs.rocketscloud.repositories.jpa.ComponentRepositoryJPA;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.boot.CommandLineRunner;
-import com.work.vladimirs.rocketscloud.inventory.Component;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,12 +39,12 @@ public class PreLoadConfig {
         };
     }*/
 
-/*    @Bean
-    public ApplicationRunner dataLoader(ComponentRepository componentRepository) {
+    /*@Bean
+    public ApplicationRunner dataLoader(ComponentRepositoryJPA componentRepository) {
         return new ApplicationRunner() {
             @Override
             public void run(ApplicationArguments args) throws Exception {
-                componentRepository.save(new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS));
+                componentRepository.save(new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS.));
                 componentRepository.save(new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS));
                 componentRepository.save(new Component("PMK1CP", "PODS MK1 Command Pod", Component.Type.PODS));
                 componentRepository.save(new Component("PMK2CP", "PODS MK2 Command Pod", Component.Type.PODS));

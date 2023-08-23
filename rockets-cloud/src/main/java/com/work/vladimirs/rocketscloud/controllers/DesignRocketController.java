@@ -3,7 +3,7 @@ package com.work.vladimirs.rocketscloud.controllers;
 import com.work.vladimirs.rocketscloud.inventory.Component;
 import com.work.vladimirs.rocketscloud.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
-import com.work.vladimirs.rocketscloud.repositories.ComponentRepository;
+import com.work.vladimirs.rocketscloud.repositories.jdbc.ComponentRepositoryJDBC;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Slf4j
 @Controller
@@ -24,11 +22,11 @@ import java.util.stream.StreamSupport;
 @SessionAttributes("rocketOrder")
 public class DesignRocketController {
 
-    private final ComponentRepository componentRepository;
+    private final ComponentRepositoryJDBC componentRepositoryJDBC;
 
     @Autowired
-    public DesignRocketController(ComponentRepository componentRepository) {
-        this.componentRepository = componentRepository;
+    public DesignRocketController(ComponentRepositoryJDBC componentRepositoryJDBC) {
+        this.componentRepositoryJDBC = componentRepositoryJDBC;
     }
 
 //    /**
@@ -70,7 +68,7 @@ public class DesignRocketController {
     @ModelAttribute
     public void addComponentsToModel(Model model) {
         List<Component> components = new ArrayList<>();
-        componentRepository.findAll().forEach(components::add);
+        componentRepositoryJDBC.findAll().forEach(components::add);
         Component.Type[] types = Component.Type.values();
         for (Component.Type type : types) {
             model.addAttribute(

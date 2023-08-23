@@ -3,14 +3,12 @@ package com.work.vladimirs.rocketscloud.repositories.jdbc;
 import com.work.vladimirs.rocketscloud.inventory.Component;
 import com.work.vladimirs.rocketscloud.inventory.Rocket;
 import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
-import com.work.vladimirs.rocketscloud.repositories.OrderRepository;
 import org.springframework.asm.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Types;
@@ -21,12 +19,12 @@ import java.util.List;
 // Т.к. Spring data jdbc автоматом создаёт реализации, надобность в этом репозитории отпадает
 //@Repository
 @Deprecated
-public class JdbcOrderRepository implements OrderRepository {
+public class JdbcOrderRepositoryJDBC implements OrderRepositoryJDBC {
 
     private final JdbcOperations jdbcOperations;
 
     @Autowired
-    public JdbcOrderRepository(JdbcOperations jdbcOperations) {
+    public JdbcOrderRepositoryJDBC(JdbcOperations jdbcOperations) {
         this.jdbcOperations = jdbcOperations;
     }
 
