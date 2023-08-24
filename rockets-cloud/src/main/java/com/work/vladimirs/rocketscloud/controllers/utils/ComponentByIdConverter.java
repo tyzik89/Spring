@@ -1,6 +1,6 @@
 package com.work.vladimirs.rocketscloud.controllers.utils;
 
-import com.work.vladimirs.rocketscloud.inventory.Component;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.ComponentJdbc;
 import com.work.vladimirs.rocketscloud.repositories.jdbc.ComponentRepositoryJDBC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
@@ -9,7 +9,7 @@ import org.springframework.core.convert.converter.Converter;
  * Конвертер полей с UI (*{components} = ["PMK1C", "FFLT200"] и т.д.) в поле List<Component> components, объекта Rocket
  */
 @org.springframework.stereotype.Component
-class ComponentByIdConverter implements Converter<String, Component> {
+class ComponentByIdConverter implements Converter<String, ComponentJdbc> {
 
     private final ComponentRepositoryJDBC componentRepositoryJDBC;
 
@@ -22,7 +22,7 @@ class ComponentByIdConverter implements Converter<String, Component> {
      * Добавление компонентов через БД
      */
     @Override
-    public Component convert(String s) {
+    public ComponentJdbc convert(String s) {
         return componentRepositoryJDBC.findById(s).orElse(null);
     }
 
