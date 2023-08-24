@@ -1,11 +1,9 @@
-package com.work.vladimirs.rocketscloud.inventory;
+package com.work.vladimirs.rocketscloud.inventory.jpa;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -18,7 +16,7 @@ import java.io.Serializable;
 @Entity // нужно для JPA
 @AllArgsConstructor // нужно для JPA
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true) // force = true - сделать все св-ва финальными и присвоить им дефолтные зн-я
-public class Component implements Serializable {
+public class ComponentJpa implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

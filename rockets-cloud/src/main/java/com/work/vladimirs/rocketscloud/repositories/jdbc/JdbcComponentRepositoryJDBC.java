@@ -1,9 +1,10 @@
 package com.work.vladimirs.rocketscloud.repositories.jdbc;
 
-import com.work.vladimirs.rocketscloud.inventory.Component;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.ComponentJdbc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 // Т.к. Spring data jdbc автоматом создаёт реализации, надобность в этом репозитории отпадает
-//@Repository
+@Repository
 @Deprecated
 public class JdbcComponentRepositoryJDBC implements ComponentRepositoryJDBC {
 
@@ -23,17 +24,17 @@ public class JdbcComponentRepositoryJDBC implements ComponentRepositoryJDBC {
     }
 
     @Override
-    public Iterable<Component> findAll() {
+    public Iterable<ComponentJdbc> findAll() {
         return jdbcTemplate.query(
                 "select id, name, type from Component",
                 this::mapRowToComponent);
     }
 
-    private Component mapRowToComponent(ResultSet resultSet, int rowNum) throws SQLException {
-        return new Component(
+    private ComponentJdbc mapRowToComponent(ResultSet resultSet, int rowNum) throws SQLException {
+        return new ComponentJdbc(
                 resultSet.getString("id"),
                 resultSet.getString("name"),
-                Component.Type.valueOf(resultSet.getString("type")));
+                ComponentJdbc.Type.valueOf(resultSet.getString("type")));
     }
 
 //    @Override
@@ -51,16 +52,16 @@ public class JdbcComponentRepositoryJDBC implements ComponentRepositoryJDBC {
      * Метод с явной реализацией RowMapper
      */
     @Override
-    public Optional<Component> findById(String id) {
-        List<Component> results = jdbcTemplate.query(
+    public Optional<ComponentJdbc> findById(String id) {
+        List<ComponentJdbc> results = jdbcTemplate.query(
                 "select id, name, type from Component where id = ?",
-                new RowMapper<Component>() {
+                new RowMapper<ComponentJdbc>() {
                     @Override
-                    public Component mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-                        return new Component(
+                    public ComponentJdbc mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+                        return new ComponentJdbc(
                                 resultSet.getString("id"),
                                 resultSet.getString("name"),
-                                Component.Type.valueOf(resultSet.getString("type")));
+                                ComponentJdbc.Type.valueOf(resultSet.getString("type")));
                     }
                 },
                 id);
@@ -70,7 +71,7 @@ public class JdbcComponentRepositoryJDBC implements ComponentRepositoryJDBC {
     }
 
     @Override
-    public Component save(Component component) {
+    public ComponentJdbc save(ComponentJdbc component) {
         jdbcTemplate.update(
                 "insert into Component(id, name, type) values (?, ?, ?)",
                 component.getId(),

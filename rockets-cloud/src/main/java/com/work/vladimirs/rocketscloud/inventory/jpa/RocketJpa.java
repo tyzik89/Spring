@@ -1,7 +1,6 @@
-package com.work.vladimirs.rocketscloud.inventory;
+package com.work.vladimirs.rocketscloud.inventory.jpa;
 
 import lombok.Data;
-import org.springframework.data.relational.core.mapping.Table;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -12,7 +11,7 @@ import java.util.List;
 @Data
 //@Table // нужно для Spring Data
 @Entity // нужно для JPA
-public class Rocket {
+public class RocketJpa {
 
 //    @Id // нужно для Spring Data
     @Id // нужно для JPA
@@ -27,5 +26,5 @@ public class Rocket {
     @NotNull
     @Size(min = 1, message = "You must choose at least 1 component")
     @ManyToMany // нужно для JPA
-    private List<Component> components;
+    private List<ComponentJpa> components;
 }

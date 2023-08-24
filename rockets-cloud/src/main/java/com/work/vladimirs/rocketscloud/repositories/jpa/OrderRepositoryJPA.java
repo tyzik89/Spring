@@ -1,7 +1,6 @@
 package com.work.vladimirs.rocketscloud.repositories.jpa;
 
-import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
-import org.springframework.data.jpa.repository.Query;
+import com.work.vladimirs.rocketscloud.inventory.jpa.RocketOrderJpa;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -10,14 +9,14 @@ import java.util.List;
  * 'extends Repository<>' либо 'extends CrudRepository<>' нужен для совместного использования с Spring Data Jdbc
  * 'CrudRepository<>' уже определяет нужные методы и можно их не явно не определеять
  */
-public interface OrderRepositoryJPA extends CrudRepository<RocketOrder, Long> {
+public interface OrderRepositoryJPA extends CrudRepository<RocketOrderJpa, Long> {
 
     // Часть методов CRUD можно явно не определять
 //    RocketOrder save(RocketOrder rocketOrder);
 
     // Новый уникальный метод по поиску ордеров по заданному району
     // используется DSL - предметно - ориентированный язык, по имени метода определяется его функционал.
-    List<RocketOrder> findByDeliveryZip(String deliveryZip);
+    List<RocketOrderJpa> findByDeliveryZip(String deliveryZip);
 
     // Новый уникальный метод по поиску ордеров по заданному району и диапазону дат
     // используется DSL - предметно - ориентированный язык, по имени метода определяется его функционал.

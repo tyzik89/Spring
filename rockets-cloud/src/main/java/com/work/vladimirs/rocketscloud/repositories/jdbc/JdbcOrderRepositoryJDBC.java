@@ -1,14 +1,15 @@
 package com.work.vladimirs.rocketscloud.repositories.jdbc;
 
-import com.work.vladimirs.rocketscloud.inventory.Component;
-import com.work.vladimirs.rocketscloud.inventory.Rocket;
-import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.ComponentJdbc;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.RocketJdbc;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.RocketOrderJdbc;
 import org.springframework.asm.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementCreatorFactory;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Types;
@@ -17,7 +18,7 @@ import java.util.Date;
 import java.util.List;
 
 // Т.к. Spring data jdbc автоматом создаёт реализации, надобность в этом репозитории отпадает
-//@Repository
+@Repository
 @Deprecated
 public class JdbcOrderRepositoryJDBC implements OrderRepositoryJDBC {
 
@@ -30,7 +31,7 @@ public class JdbcOrderRepositoryJDBC implements OrderRepositoryJDBC {
 
     @Override
     @Transactional
-    public RocketOrder save(RocketOrder rocketOrder) {
+    public RocketOrderJdbc save(RocketOrderJdbc rocketOrder) {
         PreparedStatementCreatorFactory factory =
                 new PreparedStatementCreatorFactory(
                         "insert into Rocket_Order"
@@ -62,15 +63,15 @@ public class JdbcOrderRepositoryJDBC implements OrderRepositoryJDBC {
         long orderId = keyHolder.getKey().longValue();
         rocketOrder.setId(orderId);
 
-        List<Rocket> rockets = rocketOrder.getRockets();
+        List<RocketJdbc> rockets = rocketOrder.getRockets();
         int orderKey = 0;
-        for (Rocket rocket : rockets) {
+        for (RocketJdbc rocket : rockets) {
             saveRocket(orderId, orderKey++, rocket);
         }
         return rocketOrder;
     }
 
-    private long saveRocket(long orderId, int orderKey, Rocket rocket) {
+    private long saveRocket(long orderId, int orderKey, RocketJdbc rocket) {
         rocket.setCreatedAt(new Date());
         PreparedStatementCreatorFactory creatorFactory =
                 new PreparedStatementCreatorFactory(
@@ -98,9 +99,9 @@ public class JdbcOrderRepositoryJDBC implements OrderRepositoryJDBC {
         return rocketId;
     }
 
-    private void saveComponentRefs(long rocketId, List<Component> components) {
+    private void saveComponentRefs(long rocketId, List<ComponentJdbc> components) {
         int key = 0;
-        for (Component component : components) {
+        for (ComponentJdbc component : components) {
             jdbcOperations.update(
                     "insert into Component_Ref (component, rocket, rocket_key) "
                     + "values (?, ?, ?)",

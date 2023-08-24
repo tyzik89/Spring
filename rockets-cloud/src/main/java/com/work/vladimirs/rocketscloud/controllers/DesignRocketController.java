@@ -1,9 +1,10 @@
 package com.work.vladimirs.rocketscloud.controllers;
 
-import com.work.vladimirs.rocketscloud.inventory.Component;
-import com.work.vladimirs.rocketscloud.inventory.Rocket;
-import com.work.vladimirs.rocketscloud.inventory.RocketOrder;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.ComponentJdbc;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.RocketJdbc;
+import com.work.vladimirs.rocketscloud.inventory.jdbc.RocketOrderJdbc;
 import com.work.vladimirs.rocketscloud.repositories.jdbc.ComponentRepositoryJDBC;
+import com.work.vladimirs.rocketscloud.repositories.jpa.ComponentRepositoryJPA;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,7 +26,8 @@ public class DesignRocketController {
     private final ComponentRepositoryJDBC componentRepositoryJDBC;
 
     @Autowired
-    public DesignRocketController(ComponentRepositoryJDBC componentRepositoryJDBC) {
+    public DesignRocketController(ComponentRepositoryJDBC componentRepositoryJDBC,
+                                  ComponentRepositoryJPA componentRepositoryJPA) {
         this.componentRepositoryJDBC = componentRepositoryJDBC;
     }
 
@@ -34,27 +36,27 @@ public class DesignRocketController {
 //     */
 //    @ModelAttribute
 //    public void addComponentsToModel(Model model) {
-//        List<Component> components = Arrays.asList(
-//            new Component("PMK1C", "PODS MK1 Cockpit", Component.Type.PODS),
-//            new Component("PMK2C", "PODS MK2 Cockpit", Component.Type.PODS),
-//            new Component("PMK1CP", "PODS MK1 Command Pod", Component.Type.PODS),
-//            new Component("PMK2CP", "PODS MK2 Command Pod", Component.Type.PODS),
+//        List<ComponentJdbc> components = Arrays.asList(
+//            new ComponentJdbc("PMK1C", "PODS MK1 Cockpit", ComponentJdbc.Type.PODS),
+//            new ComponentJdbc("PMK2C", "PODS MK2 Cockpit", ComponentJdbc.Type.PODS),
+//            new ComponentJdbc("PMK1CP", "PODS MK1 Command Pod", ComponentJdbc.Type.PODS),
+//            new ComponentJdbc("PMK2CP", "PODS MK2 Command Pod", ComponentJdbc.Type.PODS),
 //
-//            new Component("RWI", "RW Inline", Component.Type.REACTION_WHEELS),
-//            new Component("RWA", "RW Advanced", Component.Type.REACTION_WHEELS),
+//            new ComponentJdbc("RWI", "RW Inline", ComponentJdbc.Type.REACTION_WHEELS),
+//            new ComponentJdbc("RWA", "RW Advanced", ComponentJdbc.Type.REACTION_WHEELS),
 //
-//            new Component("ELVT30", "LV-T30", Component.Type.ENGINES),
-//            new Component("ELVT45", "LVT-45", Component.Type.ENGINES),
-//            new Component("EREL10", "RE-L10", Component.Type.ENGINES),
-//            new Component("EREI5", "RE-I5", Component.Type.ENGINES),
+//            new ComponentJdbc("ELVT30", "LV-T30", ComponentJdbc.Type.ENGINES),
+//            new ComponentJdbc("ELVT45", "LVT-45", ComponentJdbc.Type.ENGINES),
+//            new ComponentJdbc("EREL10", "RE-L10", ComponentJdbc.Type.ENGINES),
+//            new ComponentJdbc("EREI5", "RE-I5", ComponentJdbc.Type.ENGINES),
 //
-//            new Component("FFLT100", "FL-T100", Component.Type.FUEL_TANKS),
-//            new Component("FFLT200", "FL-T200", Component.Type.FUEL_TANKS),
-//            new Component("FFLT800", "FL-T400", Component.Type.FUEL_TANKS),
-//            new Component("FR12", "R-12", Component.Type.FUEL_TANKS)
+//            new ComponentJdbc("FFLT100", "FL-T100", ComponentJdbc.Type.FUEL_TANKS),
+//            new ComponentJdbc("FFLT200", "FL-T200", ComponentJdbc.Type.FUEL_TANKS),
+//            new ComponentJdbc("FFLT800", "FL-T400", ComponentJdbc.Type.FUEL_TANKS),
+//            new ComponentJdbc("FR12", "R-12", ComponentJdbc.Type.FUEL_TANKS)
 //        );
-//        Component.Type[] types = Component.Type.values();
-//        for (Component.Type type : types) {
+//        ComponentJdbc.Type[] types = ComponentJdbc.Type.values();
+//        for (ComponentJdbc.Type type : types) {
 //            model.addAttribute(
 //                    type.toString().toLowerCase(),
 //                    filterByType(components, type)
@@ -67,10 +69,10 @@ public class DesignRocketController {
      */
     @ModelAttribute
     public void addComponentsToModel(Model model) {
-        List<Component> components = new ArrayList<>();
+        List<ComponentJdbc> components = new ArrayList<>();
         componentRepositoryJDBC.findAll().forEach(components::add);
-        Component.Type[] types = Component.Type.values();
-        for (Component.Type type : types) {
+        ComponentJdbc.Type[] types = ComponentJdbc.Type.values();
+        for (ComponentJdbc.Type type : types) {
             model.addAttribute(
                     type.toString().toLowerCase(),
                     filterByType(components, type));
@@ -78,13 +80,13 @@ public class DesignRocketController {
     }
 
     @ModelAttribute(name = "rocketOrder")
-    public RocketOrder order() {
-        return new RocketOrder();
+    public RocketOrderJdbc order() {
+        return new RocketOrderJdbc();
     }
 
     @ModelAttribute(name = "rocket")
-    public Rocket rocket() {
-        return new Rocket();
+    public RocketJdbc rocket() {
+        return new RocketJdbc();
     }
 
     @GetMapping
@@ -92,7 +94,7 @@ public class DesignRocketController {
         return "design";
     }
 
-    private Iterable<Component> filterByType(List<Component> components, Component.Type type) {
+    private Iterable<ComponentJdbc> filterByType(List<ComponentJdbc> components, ComponentJdbc.Type type) {
         return components
                 .stream()
                 .filter(c -> type.equals(c.getType()))
@@ -100,9 +102,9 @@ public class DesignRocketController {
     }
 
     @PostMapping
-    public String processRocket(@Valid Rocket rocket,
+    public String processRocket(@Valid RocketJdbc rocket,
                                 Errors errors,
-                                @ModelAttribute RocketOrder rocketOrder) {
+                                @ModelAttribute(name = "rocketOrder") RocketOrderJdbc rocketOrder) {
         if (errors.hasErrors()) {
             return "design";
         }

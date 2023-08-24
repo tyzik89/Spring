@@ -1,10 +1,5 @@
 package com.work.vladimirs.rocketscloud.configuration;
 
-import com.work.vladimirs.rocketscloud.inventory.Component;
-import com.work.vladimirs.rocketscloud.repositories.jpa.ComponentRepositoryJPA;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**

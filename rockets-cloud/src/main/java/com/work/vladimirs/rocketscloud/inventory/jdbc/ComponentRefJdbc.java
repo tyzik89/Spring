@@ -1,4 +1,4 @@
-package com.work.vladimirs.rocketscloud.inventory;
+package com.work.vladimirs.rocketscloud.inventory.jdbc;
 
 import lombok.Data;
 import org.springframework.data.relational.core.mapping.Table;
@@ -7,8 +7,8 @@ import org.springframework.data.relational.core.mapping.Table;
  * Связь между Rocket и Component
  */
 @Data
-@Table // нужно для Spring Data
-public class ComponentRef {
+@Table("Component_Ref") // нужно для Spring Data
+public class ComponentRefJdbc {
 
     private final String component;
 }
