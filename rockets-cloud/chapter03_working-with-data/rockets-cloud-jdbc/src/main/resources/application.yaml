@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    generate-unique-name: false
+    name: rocketcloud
+  jpa:
+    hibernate:
+      ddl-auto: none # JPA recreate DB schema without such param
