@@ -11,15 +11,15 @@
 <h1>Hello! Time to design your rocket!</h1> <!--<span th:text="${user.fullname}">NAME</span>-->
 <img th:src="@{/images/RocketsCloud.png}"/>
 
-<!--    <form method="POST" th:action="@{/logout}" id="logoutForm">-->
-<!--        <input type="submit" value="Logout"/>-->
-<!--    </form>-->
+    <form method="POST" th:action="@{/logout}" id="logoutForm">
+        <input type="submit" value="Logout"/>
+    </form>
 
 <!--    <a th:href="@{/orders}" id="order_list">Show orders list</a>-->
 <!--    <br/>-->
 
 <form method="POST" th:object="${rocket}"> <!--th:action="@{/design}" id="designForm"-->
-  
+  <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>  <!-- Явное включение CSRF (если стоит th:action, то Thymeleaf сам добавляет csrf) -->
   <span class="validationError"
         th:if="${#fields.hasErrors('components')}"
         th:errors="*{components}">Component absent Error</span>

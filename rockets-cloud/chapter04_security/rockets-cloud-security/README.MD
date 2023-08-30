@@ -7,3 +7,5 @@ select * from component;
 select * from rocket_components;
 
 select * from rocket_order;
+
+select * from user;
