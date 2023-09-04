@@ -5,8 +5,12 @@ import com.work.vladimirs.rocketscloud.security.User;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.WebSecurityConfigurer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,7 +32,10 @@ import java.util.Arrays;
 import java.util.List;
 
 @Configuration
-public class SecurityConfig {
+@EnableGlobalMethodSecurity(prePostEnabled = true) // Нужно для @PreAuthorize("hasRole('ADMIN')") аннотаций
+//@EnableWebSecurity // Отключение конфигурации безопасности веб-приложения по умолчанию
+// @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true) // В новых версиях спринга можно не делать extends WebSecurityConfigurerAdapter, а использовать эту аанотацию
+public class SecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -88,6 +95,7 @@ public class SecurityConfig {
                 .and()
 //                    .csrf()
 //                    .disable()
+                 // Нужно, чтобы консоль h2 была доступна
                  .headers(headers -> headers.frameOptions().disable())
                  .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"));
 //                    .headers()
