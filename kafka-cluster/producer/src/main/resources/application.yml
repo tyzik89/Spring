@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: kafka-example-producer
+  kafka:
+    # Перечисляем всех наших брокеров
+    bootstrap-servers: host.docker.internal:29092,host.docker.internal:29093
+    producer:
+      client-id: ${spring.application.name}
+      # Настраиваем сериализацию сообщений
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # Получение каждой записи должно быть подтверждено
+      acks: 1
+kafka:
+  topics:
+    test-topic: test_topic_1

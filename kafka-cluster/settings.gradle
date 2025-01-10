@@ -1,0 +1,4 @@
+rootProject.name = 'kafka-cluster'
+include 'producer'
+include 'consumer'
+
