@@ -15,8 +15,7 @@ spring:
       hibernate:
         format_sql: true
   redis:
-    host: redis://default:rpassword@localhost:6379
-    port: 6379
+    host: redis://localhost:6379
     timeout: 60000
   cache:
     redis:
