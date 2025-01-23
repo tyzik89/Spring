@@ -1,7 +1,7 @@
 package com.work.vladimirs.redis_caching.service;
 
-import com.work.vladimirs.redis_caching.model.Book;
-import com.work.vladimirs.redis_caching.repository.BookRepository;
+import com.work.vladimirs.redis_caching.model.Magazine;
+import com.work.vladimirs.redis_caching.repository.MagazineRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -12,40 +12,39 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 // @CacheConfig аннотация конфигурирует все кэш-операции данного класса.
-@CacheConfig(cacheNames = "BookCache")
+@CacheConfig(cacheNames = "MagazineCache", cacheManager = "alternateCacheManager")
 @RequiredArgsConstructor
 @Slf4j
-public class BookService {
+public class MagazineService {
 
-    private final BookRepository bookRepository;
+    private final MagazineRepository magazineRepository;
 
     // @Cacheable — говорит, что результат работы метода попадает в кэш
     // и при последующем вызове берётся оттуда (по ключу, указанному в параметре).
     @Cacheable
-    public List<Book> findAll() {
-        return bookRepository.findAll();
+    public List<Magazine> findAll() {
+        return magazineRepository.findAll();
     }
 
     @Cacheable(key = "#id")
-    public Book findById(Long id) {
-        log.info("Find book by id: {}", id);
-        return bookRepository.findById(id)
+    public Magazine findById(Long id) {
+        log.info("Find magazine by id: {}", id);
+        return magazineRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found by id " + id));
     }
 
     // @CachePut — позволяет обновить запись в кэше.
-    @CachePut(key = "#book.id")
-    public Book save(Book book) {
-        return bookRepository.save(book);
+    @CachePut(key = "#Magazine.id")
+    public Magazine save(Magazine magazine) {
+        return magazineRepository.save(magazine);
     }
 
     // @CacheEvict — удаляет запись из кэша.
     @CacheEvict(key = "#id")
     public void deleteById(Long id) {
-        bookRepository.deleteById(id);
+        magazineRepository.deleteById(id);
     }
 }
