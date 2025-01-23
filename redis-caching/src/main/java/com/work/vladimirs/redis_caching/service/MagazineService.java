@@ -15,6 +15,7 @@ import java.util.List;
 
 @Service
 // @CacheConfig аннотация конфигурирует все кэш-операции данного класса.
+// cacheManager указывает на другой бин менеджера, в данном случае стандартный spring ConcurrentMapCacheManager
 @CacheConfig(cacheNames = "MagazineCache", cacheManager = "alternateCacheManager")
 @RequiredArgsConstructor
 @Slf4j
