@@ -3,7 +3,6 @@ services:
   rc-postgres:
     image: postgres:14.10
     container_name: rc-postgres
-    hostname: localhost
     ports:
       - 5432:5432
     environment:
@@ -36,6 +35,9 @@ services:
     build: ./
     ports:
       - 8080:8080
+    environment:
+      POSTGRES_HOST: rc-postgres
+      POSTGRES_PORT: 5432
     depends_on:
       rc-postgres:
         condition: service_healthy

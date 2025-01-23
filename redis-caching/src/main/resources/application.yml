@@ -2,7 +2,7 @@ spring:
   application:
     name: redis-caching
   datasource:
-    url: jdbc:postgresql://localhost:5432/redis-caching
+    url: jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/redis-caching
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
