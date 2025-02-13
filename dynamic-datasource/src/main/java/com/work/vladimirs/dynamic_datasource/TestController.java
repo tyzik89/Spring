@@ -76,6 +76,7 @@ public class TestController {
     private DataSource createDataSource(String url, DataSourceProperties properties) {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(url);
+        config.setPoolName("my-new-pool");
         config.setUsername(properties.getUsername());
         config.setPassword(properties.getPassword());
         return new HikariDataSource(config);
