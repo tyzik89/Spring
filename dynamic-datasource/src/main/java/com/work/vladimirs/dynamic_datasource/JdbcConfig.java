@@ -48,11 +48,8 @@ public class JdbcConfig {
 
         ShardDataSourceRouter dataSourceRouter = new ShardDataSourceRouter();
 
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(dsProperties.getUrl(), defaultDataSource);
-
-        dataSourceRouter.setTargetDataSources(targetDataSources);
         dataSourceRouter.setDefaultTargetDataSource(defaultDataSource); // Установите источник по умолчанию
+        dataSourceRouter.addDataSource(dsProperties.getUrl(), defaultDataSource);
         return dataSourceRouter;
     }
 
