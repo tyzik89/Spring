@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: dynamic-datasource
+  datasource:
+    url: jdbc:postgresql://localhost:5431/db-1
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: public
+      pool-name: pool-1
+      minimum-idle: 10
+      maximum-pool-size: 10
+      connection-timeout: 5000
+      max-lifetime: 180000
+      idle-timeout: 100000
+      auto-commit: true

@@ -1,0 +1,49 @@
+services:
+
+  rc-postgres-1:
+    image: postgres:14.10
+    container_name: rc-postgres-1
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db-1
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - postgres
+    volumes:
+      - /data:/var/lib/postgresql/dynamic_1
+
+  rc-postgres-2:
+    image: postgres:14.10
+    container_name: rc-postgres-2
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: db-2
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}" ]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - postgres
+    volumes:
+      - /data:/var/lib/postgresql/dynamic_2
+
+networks:
+  postgres:
+    driver: bridge
+
+volumes:
+  db:
+    driver: local
