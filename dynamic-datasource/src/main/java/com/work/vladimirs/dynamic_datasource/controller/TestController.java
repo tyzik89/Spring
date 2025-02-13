@@ -1,8 +1,12 @@
-package com.work.vladimirs.dynamic_datasource;
+package com.work.vladimirs.dynamic_datasource.controller;
 
+import com.work.vladimirs.dynamic_datasource.model.TestEntity;
+import com.work.vladimirs.dynamic_datasource.service.JdbcService;
+import com.work.vladimirs.dynamic_datasource.service.ShardSwitcherService;
+import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceContextHolder;
+import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -24,21 +28,21 @@ public class TestController {
 
     private final JdbcService jdbcService;
 
+    private final ShardSwitcherService shardSwitcherService;
+
     private final ShardDataSourceRouter shardDataSource;
 
-    private final DataSourceProperties dsProperties;
-
-    public TestController(JdbcService jdbcService, ShardDataSourceRouter shardDataSource, @Qualifier("dsProperties") DataSourceProperties dsProperties) {
+    public TestController(JdbcService jdbcService, ShardSwitcherService shardSwitcherService, ShardDataSourceRouter shardDataSource) {
         this.jdbcService = jdbcService;
+        this.shardSwitcherService = shardSwitcherService;
         this.shardDataSource = shardDataSource;
-        this.dsProperties = dsProperties;
     }
 
     @GetMapping("/getAll")
     public ResponseEntity<List<TestEntity>> findAll(@RequestParam String url) {
-        ShardSourceContextHolder.setDataSourceKey(url);
+        shardSwitcherService.switchDataSourceContext(url);
         List<TestEntity> all = jdbcService.getAll();
-        ShardSourceContextHolder.clear();
+        shardSwitcherService.clearCurrentContext();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(all);
@@ -46,9 +50,9 @@ public class TestController {
 
     @GetMapping("/get/{id}")
     public ResponseEntity<TestEntity> findById(@PathVariable Long id, @RequestParam String url) {
-        ShardSourceContextHolder.setDataSourceKey(url);
+        shardSwitcherService.switchDataSourceContext(url);
         TestEntity byId = jdbcService.getById(id);
-        ShardSourceContextHolder.clear();
+        shardSwitcherService.clearCurrentContext();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(byId);
@@ -56,9 +60,9 @@ public class TestController {
 
     @GetMapping("/save")
     public ResponseEntity<Integer> save(@RequestParam Long id, @RequestParam String field, @RequestParam String url) {
-        ShardSourceContextHolder.setDataSourceKey(url);
+        shardSwitcherService.switchDataSourceContext(url);
         int save = jdbcService.save(id, field);
-        ShardSourceContextHolder.clear();
+        shardSwitcherService.clearCurrentContext();
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(save);
@@ -66,12 +70,12 @@ public class TestController {
 
 /*====================================================================================================================*/
 
-    @GetMapping("/addDs")
-    public ResponseEntity<String> addDs(@RequestParam String url) {
-        shardDataSource.addDataSource(url, createDataSource(url, dsProperties));
-        return ResponseEntity
-                .status(HttpStatus.OK).body("OK");
-    }
+//    @GetMapping("/addDs")
+//    public ResponseEntity<String> addDs(@RequestParam String url) {
+//        shardDataSource.addDataSource(url, createDataSource(url, dsProperties));
+//        return ResponseEntity
+//                .status(HttpStatus.OK).body("OK");
+//    }
 
     private DataSource createDataSource(String url, DataSourceProperties properties) {
         HikariConfig config = new HikariConfig();

@@ -1,6 +1,6 @@
-package com.work.vladimirs.dynamic_datasource;
+package com.work.vladimirs.dynamic_datasource.service;
 
-import lombok.RequiredArgsConstructor;
+import com.work.vladimirs.dynamic_datasource.model.TestEntity;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

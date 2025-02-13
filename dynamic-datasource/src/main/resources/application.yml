@@ -8,10 +8,14 @@ spring:
     driver-class-name: org.postgresql.Driver
     hikari:
       schema: public
-      pool-name: pool-1
+      pool-name: default_pool
       minimum-idle: 10
       maximum-pool-size: 10
       connection-timeout: 5000
       max-lifetime: 180000
       idle-timeout: 100000
       auto-commit: true
+myapp:
+  database:
+    sharding:
+      enabled: true

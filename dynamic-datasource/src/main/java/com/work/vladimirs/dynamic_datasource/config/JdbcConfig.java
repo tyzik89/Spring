@@ -1,5 +1,6 @@
-package com.work.vladimirs.dynamic_datasource;
+package com.work.vladimirs.dynamic_datasource.config;
 
+import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -11,8 +12,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Конфигурация JDBC для БД rkk.

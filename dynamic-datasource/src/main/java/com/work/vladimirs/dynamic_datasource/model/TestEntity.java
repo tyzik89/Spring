@@ -1,4 +1,4 @@
-package com.work.vladimirs.dynamic_datasource;
+package com.work.vladimirs.dynamic_datasource.model;
 
 public class TestEntity {
 
