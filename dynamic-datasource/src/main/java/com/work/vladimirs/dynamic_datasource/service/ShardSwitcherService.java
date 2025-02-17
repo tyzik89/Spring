@@ -4,7 +4,6 @@ import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceContextHold
 import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -24,15 +23,15 @@ public class ShardSwitcherService {
 
     private final HikariConfig hikariConfig;
 
-    private final DataSourceProperties rkkProperties;
+    private final DataSourceProperties dsProperties;
 
     private final ShardDataSourceRouter shardDataSourceRouter;
 
     public ShardSwitcherService(@Qualifier("hikariConfig") HikariConfig hikariConfig,
-                                @Qualifier("dsProperties") DataSourceProperties rkkProperties,
+                                @Qualifier("dsProperties") DataSourceProperties dsProperties,
                                 @Qualifier("shardDataSource") ShardDataSourceRouter shardDataSourceRouter) {
         this.hikariConfig = hikariConfig;
-        this.rkkProperties = rkkProperties;
+        this.dsProperties = dsProperties;
         this.shardDataSourceRouter = shardDataSourceRouter;
     }
 
@@ -51,9 +50,9 @@ public class ShardSwitcherService {
         config.setJdbcUrl(dataSourceKey);
         config.setPoolName(hikariConfig.getPoolName() + poolNameCounter.getAndIncrement());
 
-        config.setUsername(rkkProperties.getUsername());
-        config.setPassword(rkkProperties.getPassword());
-        config.setDriverClassName(rkkProperties.getDriverClassName());
+        config.setUsername(dsProperties.getUsername());
+        config.setPassword(dsProperties.getPassword());
+        config.setDriverClassName(dsProperties.getDriverClassName());
         return new HikariDataSource(config);
     }
 

@@ -14,7 +14,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import javax.sql.DataSource;
 
 /**
- * Конфигурация JDBC для БД rkk.
+ * Конфигурация JDBC для БД
  */
 @Configuration
 public class JdbcConfig {
