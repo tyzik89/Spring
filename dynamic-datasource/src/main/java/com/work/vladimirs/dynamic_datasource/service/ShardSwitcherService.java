@@ -38,10 +38,11 @@ public class ShardSwitcherService {
     private final AtomicInteger poolNameCounter = new AtomicInteger(1);
 
     public void switchDataSourceContext(String dataSourceKey) {
-        if (!shardDataSourceRouter.isDataSourcePresent(dataSourceKey)) {
-            shardDataSourceRouter.addDataSource(dataSourceKey, createHikariDataSource(dataSourceKey));
+        String replacedShardKey = dataSourceKey.replaceAll("/", "");
+        if (!shardDataSourceRouter.isDataSourcePresent(replacedShardKey)) {
+            shardDataSourceRouter.addDataSource(replacedShardKey, createHikariDataSource(dataSourceKey));
         }
-        ShardDataSourceContextHolder.setDataSourceShardKey(dataSourceKey);
+        ShardDataSourceContextHolder.setDataSourceShardKey(replacedShardKey);
     }
 
     private DataSource createHikariDataSource(String dataSourceKey) {
