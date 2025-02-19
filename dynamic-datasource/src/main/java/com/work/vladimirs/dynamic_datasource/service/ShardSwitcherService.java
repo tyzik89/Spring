@@ -4,6 +4,7 @@ import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceContextHold
 import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.hibernate.HikariConfigurationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -54,6 +55,13 @@ public class ShardSwitcherService {
         config.setUsername(dsProperties.getUsername());
         config.setPassword(dsProperties.getPassword());
         config.setDriverClassName(dsProperties.getDriverClassName());
+
+        config.setSchema(hikariConfig.getSchema());
+        config.setMaximumPoolSize(hikariConfig.getMaximumPoolSize());
+        config.setMinimumIdle(hikariConfig.getMinimumIdle());
+        config.setIdleTimeout(hikariConfig.getIdleTimeout());
+        config.setConnectionTimeout(hikariConfig.getConnectionTimeout());
+        config.setMaxLifetime(hikariConfig.getMaxLifetime());
         return new HikariDataSource(config);
     }
 
