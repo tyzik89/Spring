@@ -3,11 +3,14 @@ package com.work.vladimirs.dynamic_datasource.config;
 import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
@@ -20,9 +23,15 @@ import javax.sql.DataSource;
 public class JdbcConfig {
 
     @Bean
+    @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     @ConfigurationProperties(prefix = "spring.datasource.hikari")
     public HikariConfig hikariConfig() {
         return new HikariConfig();
+    }
+
+    @Lookup("hikariConfig")
+    protected HikariConfig getHikariConfig() {
+        return null;
     }
 
     @Bean
@@ -32,8 +41,8 @@ public class JdbcConfig {
     }
 
     @Bean
-    public DataSource defaultDataSource(@Qualifier("hikariConfig") HikariConfig hikariConfig,
-                                        @Qualifier("dsProperties") DataSourceProperties dsProperties) {
+    public DataSource defaultDataSource(@Qualifier("dsProperties") DataSourceProperties dsProperties) {
+        HikariConfig hikariConfig = getHikariConfig();
         hikariConfig.setUsername(dsProperties.getUsername());
         hikariConfig.setPassword(dsProperties.getPassword());
         hikariConfig.setJdbcUrl(dsProperties.getUrl());

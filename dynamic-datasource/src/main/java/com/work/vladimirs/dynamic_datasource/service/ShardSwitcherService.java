@@ -4,8 +4,8 @@ import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceContextHold
 import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import com.zaxxer.hikari.hibernate.HikariConfigurationUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Lookup;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
@@ -22,16 +22,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Slf4j
 public class ShardSwitcherService {
 
-    private final HikariConfig hikariConfig;
-
     private final DataSourceProperties dsProperties;
 
     private final ShardDataSourceRouter shardDataSourceRouter;
 
-    public ShardSwitcherService(@Qualifier("hikariConfig") HikariConfig hikariConfig,
-                                @Qualifier("dsProperties") DataSourceProperties dsProperties,
+    public ShardSwitcherService(@Qualifier("dsProperties") DataSourceProperties dsProperties,
                                 @Qualifier("shardDataSource") ShardDataSourceRouter shardDataSourceRouter) {
-        this.hikariConfig = hikariConfig;
         this.dsProperties = dsProperties;
         this.shardDataSourceRouter = shardDataSourceRouter;
     }
@@ -46,22 +42,20 @@ public class ShardSwitcherService {
         ShardDataSourceContextHolder.setDataSourceShardKey(replacedShardKey);
     }
 
+    @Lookup("hikariConfig")
+    protected HikariConfig getHikariConfig() {
+        return null;
+    }
+
     private DataSource createHikariDataSource(String dataSourceKey) {
-        HikariConfig config = new HikariConfig(hikariConfig.getDataSourceProperties());
+        HikariConfig config = getHikariConfig();
 
         config.setJdbcUrl(dataSourceKey);
-        config.setPoolName(hikariConfig.getPoolName() + poolNameCounter.getAndIncrement());
+        config.setPoolName(config.getPoolName() + "_" + poolNameCounter.getAndIncrement());
 
         config.setUsername(dsProperties.getUsername());
         config.setPassword(dsProperties.getPassword());
         config.setDriverClassName(dsProperties.getDriverClassName());
-
-        config.setSchema(hikariConfig.getSchema());
-        config.setMaximumPoolSize(hikariConfig.getMaximumPoolSize());
-        config.setMinimumIdle(hikariConfig.getMinimumIdle());
-        config.setIdleTimeout(hikariConfig.getIdleTimeout());
-        config.setConnectionTimeout(hikariConfig.getConnectionTimeout());
-        config.setMaxLifetime(hikariConfig.getMaxLifetime());
         return new HikariDataSource(config);
     }
 
