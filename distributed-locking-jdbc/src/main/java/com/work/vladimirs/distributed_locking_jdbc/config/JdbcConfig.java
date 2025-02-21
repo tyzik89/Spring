@@ -1,6 +1,5 @@
-package com.work.vladimirs.dynamic_datasource.config;
+package com.work.vladimirs.distributed_locking_jdbc.config;
 
-import com.work.vladimirs.dynamic_datasource.sharding.ShardDataSourceRouter;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,7 +34,7 @@ public class JdbcConfig {
     }
 
     @Bean
-    public DataSource defaultDataSource(@Qualifier("hikariConfig") HikariConfig hikariConfig,
+    public DataSource dataSource(@Qualifier("hikariConfig") HikariConfig hikariConfig,
                                         @Qualifier("dsProperties") DataSourceProperties dsProperties) {
         hikariConfig.setUsername(dsProperties.getUsername());
         hikariConfig.setPassword(dsProperties.getPassword());
@@ -45,19 +44,8 @@ public class JdbcConfig {
     }
 
     @Bean
-    public ShardDataSourceRouter shardDataSource(@Qualifier("dsProperties") DataSourceProperties dsProperties,
-                                                 @Qualifier("defaultDataSource") DataSource defaultDataSource) {
-
-        ShardDataSourceRouter dataSourceRouter = new ShardDataSourceRouter();
-
-        dataSourceRouter.setDefaultTargetDataSource(defaultDataSource); // Установите источник по умолчанию
-        dataSourceRouter.addDataSource(dsProperties.getUrl().replaceAll("/", ""), defaultDataSource);
-        return dataSourceRouter;
-    }
-
-    @Bean
-    public JdbcTemplate jdbcTemplate(@Qualifier("shardDataSource") ShardDataSourceRouter shardDataSource) {
-        return new JdbcTemplate(shardDataSource);
+    public JdbcTemplate jdbcTemplate(DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
     }
 
     @Bean

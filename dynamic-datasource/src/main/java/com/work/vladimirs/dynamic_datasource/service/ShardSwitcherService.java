@@ -56,6 +56,7 @@ public class ShardSwitcherService {
         config.setUsername(dsProperties.getUsername());
         config.setPassword(dsProperties.getPassword());
         config.setDriverClassName(dsProperties.getDriverClassName());
+        System.out.println("Создание нового datasource с параметрами: " + config.getSchema() + " " + config.getJdbcUrl() + " " +     config.getPoolName());
         return new HikariDataSource(config);
     }
 
