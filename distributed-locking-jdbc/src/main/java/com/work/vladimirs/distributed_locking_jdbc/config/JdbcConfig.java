@@ -16,6 +16,7 @@ import org.springframework.integration.support.locks.LockRegistry;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
@@ -65,10 +66,18 @@ public class JdbcConfig {
     он просто попробует сделать это позже. Но ваша бизнес-транзакция все равно откатится.*/
 
     @Bean
-    public LockRepository lockRepository(DataSource dataSource) {
-        var lockRepository = new DefaultLockRepository(dataSource);
-        lockRepository.setTransactionManager(new DataSourceTransactionManager(dataSource));
-        lockRepository.setTimeToLive(60 * 1000);
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+
+    @Bean
+    public LockRepository lockRepository(PlatformTransactionManager transactionManager,
+                                         DataSource dataSource) {
+        DefaultLockRepository lockRepository = new DefaultLockRepository(dataSource, "client_1");
+
+        lockRepository.setPrefix("my_");
+        lockRepository.setTimeToLive(60_000);
+        lockRepository.setTransactionManager(transactionManager);
         return lockRepository;
     }
 

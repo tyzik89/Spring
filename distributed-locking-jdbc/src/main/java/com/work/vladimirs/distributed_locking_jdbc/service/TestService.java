@@ -1,6 +1,5 @@
-package com.work.vladimirs.distributed_locking_jdbc.controller;
+package com.work.vladimirs.distributed_locking_jdbc.service;
 
-import org.springframework.integration.jdbc.lock.JdbcLockRegistry;
 import org.springframework.integration.support.locks.LockRegistry;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

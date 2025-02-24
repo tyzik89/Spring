@@ -3,7 +3,7 @@ package com.work.vladimirs.distributed_locking_jdbc.service;
 import org.springframework.stereotype.Service;
 import org.springframework.integration.jdbc.lock.*;
 
-@Service
+//@Service
 public class LockService {
 
     private final JdbcLockRegistry lockRegistry;
