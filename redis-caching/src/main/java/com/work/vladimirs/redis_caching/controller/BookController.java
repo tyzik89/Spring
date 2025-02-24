@@ -37,11 +37,18 @@ public class BookController {
                 .body(bookService.findById(id));
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public ResponseEntity<Book> create(@RequestBody Book book) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(bookService.save(book));
+    }
+
+    @PostMapping("/saveAll")
+    public ResponseEntity<List<Book>> createAll(@RequestBody List<Book> books) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(bookService.saveAll(books));
     }
 
     @PutMapping("/{id}")

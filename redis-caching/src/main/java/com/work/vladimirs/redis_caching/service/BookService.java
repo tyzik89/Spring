@@ -43,6 +43,11 @@ public class BookService {
         return bookRepository.save(book);
     }
 
+    @CachePut(condition = "#result.size > 0")
+    public List<Book> saveAll(List<Book> books) {
+        return bookRepository.saveAll(books);
+    }
+
     // @CacheEvict — удаляет запись из кэша.
     @CacheEvict(key = "#id")
     public void deleteById(Long id) {
